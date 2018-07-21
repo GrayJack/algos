@@ -1,0 +1,11 @@
+[package]
+name = "algo"
+version = "0.1.0"
+authors = ["GrayJack <gr41.j4ck@gmail.com>"]
+description = "A collection of algorithms in rust"
+license = "BSD-3-Clause"
+license-file = "LICENSE"
+
+
+[dependencies]
+rand = "0.5.4"
