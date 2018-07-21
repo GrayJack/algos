@@ -21,10 +21,11 @@ pub mod sort {
 
     /// Selection Sort: Sort a slice according to the way you define the cmp parameter.
     ///
-    /// Time complexity * Space complexity
-    /// Best:  Ω(n^2)   *
-    /// Avrg:  θ(n^2)   *
-    /// Worst: O(n^2)   * O(1)
+    /// |           | Time complexity | Space complexity |
+    /// |:----------|:---------------:|:----------------:|
+    /// | Best:     | Ω(n^2)          |                  |
+    /// | Avrg:     | θ(n^2)          |                  |
+    /// | Worst:    | O(n^2)          | O(1)             |
     ///
     /// #Examples
     /// ```rust
@@ -50,10 +51,11 @@ pub mod sort {
 
     /// Bubble Sort: Sort a slice according to the way you define the cmp parameter.
     ///
-    /// Time complexity * Space complexity
-    /// Best:  Ω(n)     *
-    /// Avrg:  θ(n^2)   *
-    /// Worst: O(n^2)   * O(1)
+    /// |           | Time complexity | Space complexity |
+    /// |:----------|:---------------:|:----------------:|
+    /// | Best:     | Ω(n)            |                  |
+    /// | Avrg:     | θ(n^2)          |                  |
+    /// | Worst:    | O(n^2)          | O(1)             |
     ///
     /// #Examples
     /// ```rust
@@ -76,10 +78,11 @@ pub mod sort {
     /// Cocktail Sort: Sort a slice according to the way you define the cmp parameter.
     /// It's a variation of Bubble Sort.
     ///
-    /// Time complexity * Space complexity
-    /// Best:  Ω(n)     *
-    /// Avrg:  θ(n^2)   *
-    /// Worst: O(n^2)   * O(1)
+    /// |           | Time complexity | Space complexity |
+    /// |:----------|:---------------:|:----------------:|
+    /// | Best:     | Ω(n)            |                  |
+    /// | Avrg:     | θ(n^2)          |                  |
+    /// | Worst:    | O(n^2)          | O(1)             |
     ///
     /// #Examples
     /// ```rust
@@ -120,10 +123,11 @@ pub mod sort {
 
     /// Insection Sort: Sort a slice according to the way you define the cmp parameter.
     ///
-    /// Time complexity * Space complexity
-    /// Best:  Ω(n)     *
-    /// Avrg:  θ(n^2)   *
-    /// Worst: O(n^2)   * O(1)
+    /// |           | Time complexity | Space complexity |
+    /// |:----------|:---------------:|:----------------:|
+    /// | Best:     | Ω(n)            |                  |
+    /// | Avrg:     | θ(n^2)          |                  |
+    /// | Worst:    | O(n^2)          | O(1)             |
     ///
     /// #Examples
     /// ```rust
@@ -145,10 +149,11 @@ pub mod sort {
 
     /// Merge Sort: Sort a slice according to the way you define the cmp parameter.
     ///
-    /// Time complexity   * Space complexity
-    /// Best:  Ω(nlog(n)) *
-    /// Avrg:  θ(nlog(n)) *
-    /// Worst: O(nlog(n)) * O(n)
+    /// |           | Time complexity | Space complexity |
+    /// |:----------|:---------------:|:----------------:|
+    /// | Best:     | Ω(nlog(n))      |                  |
+    /// | Avrg:     | θ(nlog(n))      |                  |
+    /// | Worst:    | O(nlog(n))      | O(n)             |
     ///
     /// #Examples
     /// ```rust
@@ -197,10 +202,11 @@ pub mod sort {
 
     /// Quick Sort: Sort a slice according to the way you define the cmp parameter.
     ///
-    /// Time complexity   * Space complexity
-    /// Best:  Ω(nlog(n)) *
-    /// Avrg:  θ(nlog(n)) *
-    /// Worst: O(n^2)     * O(log(n))
+    /// |           | Time complexity | Space complexity |
+    /// |:----------|:---------------:|:----------------:|
+    /// | Best:     | Ω(nlog(n))      |                  |
+    /// | Avrg:     | θ(nlog(n))      |                  |
+    /// | Worst:    | O(n^2)          | O(log(n))        |
     ///
     /// #Examples
     /// ```rust
@@ -240,10 +246,11 @@ pub mod sort {
 
     ///Heap Sort: Sort a slice according to the way you define the cmp parameter.
     ///
-    /// Time complexity   * Space complexity
-    /// Best:  Ω(nlog(n)) *
-    /// Avrg:  θ(nlog(n)) *
-    /// Worst: O(nlog(n)) * O(1)
+    /// |           | Time complexity | Space complexity |
+    /// |:----------|:---------------:|:----------------:|
+    /// | Best:     | Ω(nlog(n))      |                  |
+    /// | Avrg:     | θ(nlog(n))      |                  |
+    /// | Worst:    | O(nlog(n))      | O(1)             |
     ///
     /// #Examples
     /// ```rust
