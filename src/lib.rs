@@ -1,6 +1,21 @@
+/*******************************************************************************
+* Copyright 2017 Eric Shimizu Karbstein
+* All rights reserved.
+*
+* This Source Code Form is subject to the terms of the BSD 3-Clause License.
+******************************************************************************/
+
+//! This crate is a collection of algorithms.
+//! For now only sorting algorithms were implemented.
+//! It is planned to implement searching and graphs algorithms.
+
 extern crate rand;
 
 pub mod sort {
+    //! A module for using sorting algorithms.
+    //!
+    //! It contains all major sorting algorithms.
+
     use std::cmp::*;
     use rand::prelude::*;
 
