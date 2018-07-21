@@ -1,10 +1,10 @@
 [package]
-name = "algo"
+name = "algos"
 version = "0.1.0"
 authors = ["GrayJack <gr41.j4ck@gmail.com>"]
 license = "BSD-3-Clause"
 license-file = "LICENSE"
-repository = "https://github.com/GrayJack/algo"
+repository = "https://github.com/GrayJack/algos"
 description = "A collection of algorithms in rust"
 
 

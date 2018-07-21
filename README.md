@@ -1,4 +1,4 @@
-# **Algo**
+# **Algos**
 
 A rust library with a collection of algorithms.
 
@@ -11,20 +11,20 @@ Add this to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-algo = "0.1"
+algos = "0.1"
 ```
 
 and this to your crate root:
 
 ```rust
-extern crate algo;
+extern crate algos;
 ```
 
 ### Sorts algorithms
 Add this to your crate root:
 
 ```rust
-use algo::sort;
+use algos::sort;
 ```
 
 and create a array and use like this:
