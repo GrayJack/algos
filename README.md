@@ -3,7 +3,7 @@
 A rust library with a collection of algorithms.
 
 Only sort algorithms for now.
-It is planned to add search and graph algorithms as well.
+It is planned to add pattern and graph algorithms as well.
 
 ## **Usage**
 
@@ -27,7 +27,7 @@ Add this to your crate root:
 use algos::sort;
 ```
 
-and create a array and use like this:
+and create an array and use like this:
 
 ```rust
 fn fn main() {
@@ -48,12 +48,36 @@ fn main() {
 }
 ```
 
+### Searches algorithms
+Add this to your crate root:
+
+```rust
+use algos::search;
+```
+
+and create an array and use like this:
+
+```rust
+fn fn main() {
+    // Remember that your array must be crescent sorted.
+    let mut v = [1, 2, 3, 4, 5, 7, 9];
+
+    let find = search::binary(&v, &5);
+}
+```
+
 ## **Implemented**
 ### Sorts
-- [x] Selection Sort
-- [x] Bubble Sort
-- [x] Cocktail Sort
-- [x] Insertion Sort
-- [x] Merge Sort
-- [x] Quick Sort
-- [x] Heap Sort
+- [X] Selection Sort
+- [X] Bubble Sort
+- [X] Cocktail Sort
+- [X] Insertion Sort
+- [X] Merge Sort
+- [X] Quick Sort
+- [X] Heap Sort
+
+### Searches
+- [X] Linear Search
+- [X] Binary Search
+- [X] Exponential Search
+- [X] Fibonacci Search
