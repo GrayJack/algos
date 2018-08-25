@@ -20,7 +20,7 @@ and this to your crate root:
 extern crate algos;
 ```
 
-### Sorts algorithms
+### Sorts Algorithms
 Add this to your crate root:
 
 ```rust
@@ -48,7 +48,7 @@ fn main() {
 }
 ```
 
-### Searches algorithms
+### Search Algorithms
 Add this to your crate root:
 
 ```rust
@@ -63,6 +63,22 @@ fn fn main() {
     let mut v = [1, 2, 3, 4, 5, 7, 9];
 
     let find = search::binary(&v, &5);
+}
+```
+
+### Pattern Matching algorithms
+Add this to your crate root:
+
+```rust
+use algos::pattern;
+```
+
+and use like this:
+
+```rust
+fn fn main() {
+    let p = "ATCGGATTTCAGAAGCT".as_bytes();
+    let find = karp_rabin(&p, &"TTT".as_bytes()); // Type Return<usize, usize>
 }
 ```
 
@@ -81,3 +97,11 @@ fn fn main() {
 - [X] Binary Search
 - [X] Exponential Search
 - [X] Fibonacci Search
+
+### String Matching
+- [X] Bruteforce
+- [X] Karp-Rabin
+- [ ] Boyer-Moore
+- [ ] Horspool
+- [ ] Quick
+- [ ] Raita

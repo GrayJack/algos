@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright 2017 Eric Shimizu Karbstein
+* Copyright 2018 GrayJack
 * All rights reserved.
 *
 * This Source Code Form is subject to the terms of the BSD 3-Clause License.
@@ -237,7 +237,7 @@ fn partition<T: Copy+Ord, C: Fn(&T, &T) -> bool>(a: &mut [T], cmp: &C) -> usize 
     i+1
 }
 
-///Heap Sort: Sort a slice according to the way you define the cmp parameter.
+/// Heap Sort: Sort a slice according to the way you define the cmp parameter.
 ///
 /// |           | Time complexity | Space complexity |
 /// |:----------|:---------------:|:----------------:|

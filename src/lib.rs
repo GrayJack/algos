@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright 2017 Eric Shimizu Karbstein
+* Copyright 2018 GrayJack
 * All rights reserved.
 *
 * This Source Code Form is subject to the terms of the BSD 3-Clause License.
@@ -13,3 +13,4 @@ extern crate rand;
 
 pub mod sort;
 pub mod search;
+pub mod pattern;
