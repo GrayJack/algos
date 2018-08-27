@@ -1,9 +1,12 @@
 # **Algos**
 
+[![Build Status](https://api.travis-ci.com/GrayJack/algos.svg?branch=master)](https://travis-ci.com/GrayJack/algos)
+[![dependency status](https://deps.rs/repo/github/GrayJack/algos/status.svg)](https://deps.rs/repo/github/GrayJack/algos)
+
 A rust library with a collection of algorithms.
 
 Only sort algorithms for now.
-It is planned to add pattern and graph algorithms as well.
+It is planned to add graph algorithms as well.
 
 ## **Usage**
 
@@ -11,7 +14,7 @@ Add this to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-algos = "0.2"
+algos = "0.3"
 ```
 
 and this to your crate root:
