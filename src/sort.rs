@@ -10,7 +10,7 @@
 //! It contains all major sorting algorithms.
 
 use std::cmp::*;
-use rand::prelude::*;
+use rand::prelude::{Rng, thread_rng};
 
 /// Selection Sort: Sort a slice according to the way you define the cmp parameter.
 ///

@@ -1,6 +1,6 @@
 [package]
 name = "algos"
-version = "0.2.0"
+version = "0.3.0"
 authors = ["GrayJack <gr41.j4ck@gmail.com>"]
 readme = "README.md"
 license = "BSD-3-Clause"
@@ -12,4 +12,4 @@ description = "A collection of algorithms in rust"
 
 
 [dependencies]
-rand = "0.5.4"
+rand = "0.5.5"

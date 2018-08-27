@@ -56,7 +56,7 @@ pub fn bruteforce(pattern: &[u8], find: &[u8]) -> Result<usize,usize> {
 /// |:----------|:---------------:|:----------------:|
 /// | Best:     | Ω(n-m)          |                  |
 /// | Avrg:     | θ(n-m)          |                  |
-/// | Worst:    | O(m*(n-m+1))    | O(8bytes)        |
+/// | Worst:    | O(m*(n-m+1))    | O(1)             |
 ///
 /// #Examples
 /// ```rust
