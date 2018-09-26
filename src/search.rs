@@ -15,13 +15,13 @@ use std::cmp::*;
 /// and array[i] > x.
 ///
 ///
-/// |           | Time complexity | Space complexity |
+/// |   Case    | Time complexity | Space complexity |
 /// |:----------|:---------------:|:----------------:|
 /// | Best:     | Ω(1)            |                  |
 /// | Avrg:     | θ(n)            |                  |
 /// | Worst:    | O(n)            | O(1)             |
 ///
-/// #Examples
+/// # Examples
 /// ```rust
 /// use algos::search;
 ///
@@ -49,13 +49,13 @@ pub fn linear<T: Ord>(a: &[T], x: &T) -> Result<usize,usize> {
 /// as Err.
 ///
 ///
-/// |           | Time complexity | Space complexity |
+/// |   Case    | Time complexity | Space complexity |
 /// |:----------|:---------------:|:----------------:|
 /// | Best:     | Ω(1)            |                  |
 /// | Avrg:     | θ(log(n))       |                  |
 /// | Worst:    | O(log(n))       | O(1)             |
 ///
-/// #Examples
+/// # Examples
 /// ```rust
 /// use algos::search;
 ///
@@ -92,13 +92,13 @@ pub fn binary<T: Ord>(a: &[T], x: &T) -> Result<usize,usize> {
 ///
 /// This is based on binary search.
 ///
-/// |           | Time complexity | Space complexity |
+/// |   Case    | Time complexity | Space complexity |
 /// |:----------|:---------------:|:----------------:|
 /// | Best:     | Ω(1)            |                  |
 /// | Avrg:     | θ(log(n))       |                  |
 /// | Worst:    | O(log(n))       | O(1)             |
 ///
-/// #Examples
+/// # Examples
 /// ```rust
 /// use algos::search;
 ///
@@ -143,13 +143,13 @@ pub fn exponential<T: Ord>(a: &[T], x: &T) -> Result<usize,usize> {
 ///
 /// This is based on binary search.
 ///
-/// |           | Time complexity | Space complexity |
+/// |   Case    | Time complexity | Space complexity |
 /// |:----------|:---------------:|:----------------:|
 /// | Best:     | Ω(1)            |                  |
 /// | Avrg:     | θ(log(n))       |                  |
 /// | Worst:    | O(log(n))       | O(1)             |
 ///
-/// #Examples
+/// # Examples
 /// ```rust
 /// use algos::search;
 ///
@@ -165,6 +165,7 @@ pub fn fibonacci<T: Ord>(a: &[T], x: &T) -> Result<usize,usize> {
     let (mut fib1, mut fib2) = (0, 1);
     let mut fibn = fib1 + fib2;
 
+    // We are recalculating numbers, we can do better using dynamic programming.
     // Stores the smallest Fibonacci Number greater than or equal to a.len().
     while fibn < a.len() {
         fib1 = fib2;

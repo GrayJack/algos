@@ -14,13 +14,13 @@ use rand::prelude::{Rng, thread_rng};
 
 /// Selection Sort: Sort a slice according to the way you define the cmp parameter.
 ///
-/// |           | Time complexity | Space complexity |
+/// |   Case    | Time complexity | Space complexity |
 /// |:----------|:---------------:|:----------------:|
 /// | Best:     | Ω(n^2)          |                  |
 /// | Avrg:     | θ(n^2)          |                  |
 /// | Worst:    | O(n^2)          | O(1)             |
 ///
-/// #Examples
+/// # Examples
 /// ```rust
 /// use algos::sort;
 ///
@@ -44,13 +44,13 @@ pub fn selection<T: Ord, C: Fn(&T, &T) -> bool>(a: &mut [T], cmp: &C) {
 
 /// Bubble Sort: Sort a slice according to the way you define the cmp parameter.
 ///
-/// |           | Time complexity | Space complexity |
+/// |   Case    | Time complexity | Space complexity |
 /// |:----------|:---------------:|:----------------:|
 /// | Best:     | Ω(n)            |                  |
 /// | Avrg:     | θ(n^2)          |                  |
 /// | Worst:    | O(n^2)          | O(1)             |
 ///
-/// #Examples
+/// # Examples
 /// ```rust
 /// use algos::sort;
 ///
@@ -71,13 +71,13 @@ pub fn bubble<T: Ord, C: Fn(&T, &T) -> bool>(a: &mut [T], cmp: &C) {
 /// Cocktail Sort: Sort a slice according to the way you define the cmp parameter.
 /// It's a variation of Bubble Sort.
 ///
-/// |           | Time complexity | Space complexity |
+/// |   Case    | Time complexity | Space complexity |
 /// |:----------|:---------------:|:----------------:|
 /// | Best:     | Ω(n)            |                  |
 /// | Avrg:     | θ(n^2)          |                  |
 /// | Worst:    | O(n^2)          | O(1)             |
 ///
-/// #Examples
+/// # Examples
 /// ```rust
 /// use algos::sort;
 ///
@@ -116,13 +116,13 @@ pub fn cocktail<T: Ord, C: Fn(&T, &T) -> bool>(a: &mut [T], cmp: &C) {
 
 /// Insection Sort: Sort a slice according to the way you define the cmp parameter.
 ///
-/// |           | Time complexity | Space complexity |
+/// |   Case    | Time complexity | Space complexity |
 /// |:----------|:---------------:|:----------------:|
 /// | Best:     | Ω(n)            |                  |
 /// | Avrg:     | θ(n^2)          |                  |
 /// | Worst:    | O(n^2)          | O(1)             |
 ///
-/// #Examples
+/// # Examples
 /// ```rust
 /// use algos::sort;
 ///
@@ -142,13 +142,13 @@ pub fn insection<T: Ord, C: Fn(&T, &T) -> bool>(a: &mut [T], cmp: &C) {
 
 /// Merge Sort: Sort a slice according to the way you define the cmp parameter.
 ///
-/// |           | Time complexity | Space complexity |
+/// |   Case    | Time complexity | Space complexity |
 /// |:----------|:---------------:|:----------------:|
 /// | Best:     | Ω(nlog(n))      |                  |
 /// | Avrg:     | θ(nlog(n))      |                  |
 /// | Worst:    | O(nlog(n))      | O(n)             |
 ///
-/// #Examples
+/// # Examples
 /// ```rust
 /// use algos::sort;
 ///
@@ -195,13 +195,13 @@ fn combine<T: Copy + PartialOrd, C: Fn(&T, &T) -> bool>(l: &[T], r: &[T], o: &mu
 
 /// Quick Sort: Sort a slice according to the way you define the cmp parameter.
 ///
-/// |           | Time complexity | Space complexity |
+/// |   Case    | Time complexity | Space complexity |
 /// |:----------|:---------------:|:----------------:|
 /// | Best:     | Ω(nlog(n))      |                  |
 /// | Avrg:     | θ(nlog(n))      |                  |
 /// | Worst:    | O(n^2)          | O(log(n))        |
 ///
-/// #Examples
+/// # Examples
 /// ```rust
 /// use algos::sort;
 ///
@@ -239,13 +239,13 @@ fn partition<T: Copy+Ord, C: Fn(&T, &T) -> bool>(a: &mut [T], cmp: &C) -> usize 
 
 /// Heap Sort: Sort a slice according to the way you define the cmp parameter.
 ///
-/// |           | Time complexity | Space complexity |
+/// |   Case    | Time complexity | Space complexity |
 /// |:----------|:---------------:|:----------------:|
 /// | Best:     | Ω(nlog(n))      |                  |
 /// | Avrg:     | θ(nlog(n))      |                  |
 /// | Worst:    | O(nlog(n))      | O(1)             |
 ///
-/// #Examples
+/// # Examples
 /// ```rust
 /// use algos::sort;
 ///
