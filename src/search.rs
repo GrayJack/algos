@@ -7,12 +7,13 @@
 
 //! A module for using searching algorithms.
 //!
-//! The array must be crescent ordered.
+//! The array **must** be crescent ordered.
 
 use std::cmp::*;
 
-/// Linear Search: Search for the value 'x' in an array. Returns the last iterator if 'x' not find
-/// and array[i] > x.
+/// **Linear Search:** Search for the value 'x' in an array.
+///
+/// Returns `Err` holding the last iterator if 'x' not found and array[i] > x.
 ///
 ///
 /// |   Case    | Time complexity | Space complexity |
@@ -21,7 +22,7 @@ use std::cmp::*;
 /// | Avrg:     | θ(n)            |                  |
 /// | Worst:    | O(n)            | O(1)             |
 ///
-/// # Examples
+/// # Example
 /// ```rust
 /// use algos::search;
 ///
@@ -45,8 +46,9 @@ pub fn linear<T: Ord>(a: &[T], x: &T) -> Result<usize,usize> {
     Err(0)
 }
 
-/// Binary Search: Search for the value 'x' in an array. Returns the leftmost term if 'x' not find
-/// as Err.
+/// **Binary Search:** Search for the value 'x' in an array.
+///
+/// Returns `Err` holding the leftmost term if 'x' not found.
 ///
 ///
 /// |   Case    | Time complexity | Space complexity |
@@ -55,7 +57,7 @@ pub fn linear<T: Ord>(a: &[T], x: &T) -> Result<usize,usize> {
 /// | Avrg:     | θ(log(n))       |                  |
 /// | Worst:    | O(log(n))       | O(1)             |
 ///
-/// # Examples
+/// # Example
 /// ```rust
 /// use algos::search;
 ///
@@ -87,10 +89,11 @@ pub fn binary<T: Ord>(a: &[T], x: &T) -> Result<usize,usize> {
     Err(l)
 }
 
-/// Exponential Search: Search for the value 'x' in an array. Returns the leftmost term if 'x' not
-/// find as Err.
+/// **Exponential Search:** Search for the value 'x' in an array.
 ///
-/// This is based on binary search.
+/// Returns `Err` holding the leftmost term if 'x' not found.
+///
+/// **Obs.:** Variation of binary search.
 ///
 /// |   Case    | Time complexity | Space complexity |
 /// |:----------|:---------------:|:----------------:|
@@ -98,7 +101,7 @@ pub fn binary<T: Ord>(a: &[T], x: &T) -> Result<usize,usize> {
 /// | Avrg:     | θ(log(n))       |                  |
 /// | Worst:    | O(log(n))       | O(1)             |
 ///
-/// # Examples
+/// # Example
 /// ```rust
 /// use algos::search;
 ///
@@ -138,10 +141,11 @@ pub fn exponential<T: Ord>(a: &[T], x: &T) -> Result<usize,usize> {
     Err(l)
 }
 
-/// Fibinacci Search: Search for the value 'x' in an array. Returns the the last offset it passed
-/// if 'x' not find as Err.
+/// **Fibonacci Search:** Search for the value 'x' in an array.
 ///
-/// This is based on binary search.
+/// Returns `Err` holding the leftmost term if 'x' not found.
+///
+/// **Obs.:** Variation of binary search.
 ///
 /// |   Case    | Time complexity | Space complexity |
 /// |:----------|:---------------:|:----------------:|
@@ -149,7 +153,7 @@ pub fn exponential<T: Ord>(a: &[T], x: &T) -> Result<usize,usize> {
 /// | Avrg:     | θ(log(n))       |                  |
 /// | Worst:    | O(log(n))       | O(1)             |
 ///
-/// # Examples
+/// # Example
 /// ```rust
 /// use algos::search;
 ///
@@ -199,6 +203,7 @@ pub fn fibonacci<T: Ord>(a: &[T], x: &T) -> Result<usize,usize> {
 
     Err(off)
 }
+
 
 #[cfg(test)]
 pub mod test {

@@ -8,8 +8,9 @@
 //! A module for using pattern matching algorithms.
 //!
 
-/// Brute Force: Search for the pattern in the `find` parameter in a slice.
-/// it returns `Ok` the start where the first character of `find` was found
+/// **Brute Force:** Search for the pattern in the `find` parameter in a slice.
+///
+/// It returns `Ok` holding the index of the first character of `find` that was found
 /// or `Err` holding the last index it searched if not find.
 ///
 /// |   Case    | Time complexity | Space complexity |
@@ -18,7 +19,7 @@
 /// | Avrg:     | θ(m*(n-m+1))    |                  |
 /// | Worst:    | O(m*(n-m+1))    | O(1)             |
 ///
-/// # Examples
+/// # Example
 /// ```rust
 /// use algos::pattern;
 ///
@@ -46,8 +47,9 @@ pub fn bruteforce(pattern: &[u8], find: &[u8]) -> Result<usize,usize> {
     Err(cnt)
 }
 
-/// Karp-Rabin: Search for the pattern in the `find` parameter in a slice.
-/// it returns `Ok` the start where the first character of `find` was found
+/// **Karp-Rabin:** Search for the pattern in the `find` parameter in a slice.
+///
+/// It returns `Ok` holding the index of the first character of `find` that was found
 /// or `Err` holding the last index it searched if not find.
 ///
 /// |   Case    | Time complexity | Space complexity |
@@ -56,7 +58,7 @@ pub fn bruteforce(pattern: &[u8], find: &[u8]) -> Result<usize,usize> {
 /// | Avrg:     | θ(n+m)          |                  |
 /// | Worst:    | O(m*(n+m))      | O(1)             |
 ///
-/// # Examples
+/// # Example
 /// ```rust
 /// use algos::pattern;
 ///
@@ -113,8 +115,9 @@ pub fn karp_rabin(pattern: &[u8], find: &[u8]) -> Result<usize,usize> {
     Err(i)
 }
 
-/// Boyer-Moore: (NOT WORKING YET)Search for the pattern in the `find` parameter in a slice.
-/// it returns `Ok` the start where the first character of `find` was found
+/// **Boyer-Moore:** (NOT WORKING YET)Search for the pattern in the `find` parameter in a slice.
+///
+/// It returns `Ok` holding the index of the first character of `find` that was found
 /// or `Err` holding the last index it searched if not find.
 ///
 /// |   Case    | Time complexity | Space complexity |
@@ -126,7 +129,7 @@ pub fn karp_rabin(pattern: &[u8], find: &[u8]) -> Result<usize,usize> {
 ///
 /// **Obs.:** δ is the max size of u8.
 ///
-/// # Examples
+/// # Example
 /// ```rust
 /// use algos::pattern;
 ///
@@ -167,8 +170,9 @@ pub fn boyer_moore(pattern: &[u8], find: &[u8]) -> Result<usize,usize> {
     Err(j)
 }
 
-/// Horspool: Search for the pattern in the `find` parameter in a slice.
-/// it returns `Ok` the start where the first character of `find` was found
+/// **Horspool:** Search for the pattern in the `find` parameter in a slice.
+///
+/// It returns `Ok` holding the index of the first character of `find` that was found
 /// or `Err` holding the last index it searched if not find.
 ///
 /// It is a variation of the Boyer-Moore algorithm.
@@ -182,7 +186,7 @@ pub fn boyer_moore(pattern: &[u8], find: &[u8]) -> Result<usize,usize> {
 ///
 /// **Obs.:** δ is the max size of u8.
 ///
-/// # Examples
+/// # Example
 /// ```rust
 /// use algos::pattern;
 ///

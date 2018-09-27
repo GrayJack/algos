@@ -105,6 +105,6 @@ fn fn main() {
 - [X] Bruteforce
 - [X] Karp-Rabin
 - [ ] Boyer-Moore
-- [ ] Horspool
+- [X] Horspool
 - [ ] Quick
 - [ ] Raita

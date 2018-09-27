@@ -12,7 +12,7 @@
 use std::cmp::*;
 use rand::prelude::{Rng, thread_rng};
 
-/// Selection Sort: Sort a slice according to the way you define the cmp parameter.
+/// **Selection Sort:** Sort a slice according to the way you define the cmp parameter.
 ///
 /// |   Case    | Time complexity | Space complexity |
 /// |:----------|:---------------:|:----------------:|
@@ -20,7 +20,7 @@ use rand::prelude::{Rng, thread_rng};
 /// | Avrg:     | θ(n^2)          |                  |
 /// | Worst:    | O(n^2)          | O(1)             |
 ///
-/// # Examples
+/// # Example
 /// ```rust
 /// use algos::sort;
 ///
@@ -42,7 +42,7 @@ pub fn selection<T: Ord, C: Fn(&T, &T) -> bool>(a: &mut [T], cmp: &C) {
     }
 }
 
-/// Bubble Sort: Sort a slice according to the way you define the cmp parameter.
+/// **Bubble Sort:** Sort a slice according to the way you define the cmp parameter.
 ///
 /// |   Case    | Time complexity | Space complexity |
 /// |:----------|:---------------:|:----------------:|
@@ -50,7 +50,7 @@ pub fn selection<T: Ord, C: Fn(&T, &T) -> bool>(a: &mut [T], cmp: &C) {
 /// | Avrg:     | θ(n^2)          |                  |
 /// | Worst:    | O(n^2)          | O(1)             |
 ///
-/// # Examples
+/// # Example
 /// ```rust
 /// use algos::sort;
 ///
@@ -68,7 +68,7 @@ pub fn bubble<T: Ord, C: Fn(&T, &T) -> bool>(a: &mut [T], cmp: &C) {
     }
 }
 
-/// Cocktail Sort: Sort a slice according to the way you define the cmp parameter.
+/// **Cocktail Sort:** Sort a slice according to the way you define the cmp parameter.
 /// It's a variation of Bubble Sort.
 ///
 /// |   Case    | Time complexity | Space complexity |
@@ -77,7 +77,7 @@ pub fn bubble<T: Ord, C: Fn(&T, &T) -> bool>(a: &mut [T], cmp: &C) {
 /// | Avrg:     | θ(n^2)          |                  |
 /// | Worst:    | O(n^2)          | O(1)             |
 ///
-/// # Examples
+/// # Example
 /// ```rust
 /// use algos::sort;
 ///
@@ -114,7 +114,7 @@ pub fn cocktail<T: Ord, C: Fn(&T, &T) -> bool>(a: &mut [T], cmp: &C) {
     }
 }
 
-/// Insection Sort: Sort a slice according to the way you define the cmp parameter.
+/// **Insection Sort:** Sort a slice according to the way you define the cmp parameter.
 ///
 /// |   Case    | Time complexity | Space complexity |
 /// |:----------|:---------------:|:----------------:|
@@ -122,7 +122,7 @@ pub fn cocktail<T: Ord, C: Fn(&T, &T) -> bool>(a: &mut [T], cmp: &C) {
 /// | Avrg:     | θ(n^2)          |                  |
 /// | Worst:    | O(n^2)          | O(1)             |
 ///
-/// # Examples
+/// # Example
 /// ```rust
 /// use algos::sort;
 ///
@@ -140,7 +140,7 @@ pub fn insection<T: Ord, C: Fn(&T, &T) -> bool>(a: &mut [T], cmp: &C) {
     }
 }
 
-/// Merge Sort: Sort a slice according to the way you define the cmp parameter.
+/// **Merge Sort:** Sort a slice according to the way you define the cmp parameter.
 ///
 /// |   Case    | Time complexity | Space complexity |
 /// |:----------|:---------------:|:----------------:|
@@ -148,7 +148,7 @@ pub fn insection<T: Ord, C: Fn(&T, &T) -> bool>(a: &mut [T], cmp: &C) {
 /// | Avrg:     | θ(nlog(n))      |                  |
 /// | Worst:    | O(nlog(n))      | O(n)             |
 ///
-/// # Examples
+/// # Example
 /// ```rust
 /// use algos::sort;
 ///
@@ -193,7 +193,7 @@ fn combine<T: Copy + PartialOrd, C: Fn(&T, &T) -> bool>(l: &[T], r: &[T], o: &mu
 }
 
 
-/// Quick Sort: Sort a slice according to the way you define the cmp parameter.
+/// **Quick Sort:** Sort a slice according to the way you define the cmp parameter.
 ///
 /// |   Case    | Time complexity | Space complexity |
 /// |:----------|:---------------:|:----------------:|
@@ -201,7 +201,7 @@ fn combine<T: Copy + PartialOrd, C: Fn(&T, &T) -> bool>(l: &[T], r: &[T], o: &mu
 /// | Avrg:     | θ(nlog(n))      |                  |
 /// | Worst:    | O(n^2)          | O(log(n))        |
 ///
-/// # Examples
+/// # Example
 /// ```rust
 /// use algos::sort;
 ///
@@ -237,7 +237,7 @@ fn partition<T: Copy+Ord, C: Fn(&T, &T) -> bool>(a: &mut [T], cmp: &C) -> usize 
     i+1
 }
 
-/// Heap Sort: Sort a slice according to the way you define the cmp parameter.
+/// **Heap Sort:** Sort a slice according to the way you define the cmp parameter.
 ///
 /// |   Case    | Time complexity | Space complexity |
 /// |:----------|:---------------:|:----------------:|
@@ -245,7 +245,7 @@ fn partition<T: Copy+Ord, C: Fn(&T, &T) -> bool>(a: &mut [T], cmp: &C) -> usize 
 /// | Avrg:     | θ(nlog(n))      |                  |
 /// | Worst:    | O(nlog(n))      | O(1)             |
 ///
-/// # Examples
+/// # Example
 /// ```rust
 /// use algos::sort;
 ///
