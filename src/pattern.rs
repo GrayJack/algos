@@ -72,7 +72,7 @@ pub fn karp_rabin(pattern: &[u8], find: &[u8]) -> Result<usize,usize> {
 
     // Preprocessing
     // TODO: There is a way to do the preprocessing using dynamic programming, making the
-    // preprocessing time linear, making the worst case O(n-m+1)
+    // preprocessing time linear, making the worst case O(n+m)
     // Using closure cause rust let us use it FUNCTIONAL PROGRAMMING HELL YEAH
     let rehash = |a, b, hash, base| (((hash - a*base) << 1) + b);
 
@@ -115,7 +115,7 @@ pub fn karp_rabin(pattern: &[u8], find: &[u8]) -> Result<usize,usize> {
     Err(i)
 }
 
-/// **Boyer-Moore:** (NOT WORKING YET)Search for the pattern in the `find` parameter in a slice.
+/// **Boyer-Moore:** Search for the pattern in the `find` parameter in a slice.
 ///
 /// It returns `Ok` holding the index of the first character of `find` that was found
 /// or `Err` holding the last index it searched if not find.
@@ -123,7 +123,7 @@ pub fn karp_rabin(pattern: &[u8], find: &[u8]) -> Result<usize,usize> {
 /// |   Case    | Time complexity | Space complexity |
 /// |:----------|:---------------:|:----------------:|
 /// | Best:     | Ω(n/m)          |                  |
-/// | Avrg:     | θ(n/m)          |                  |
+/// | Avrg:     | θ(n+m)          |                  |
 /// | Worst:    | O(nm)           | O(m+δ)           |
 ///
 ///
@@ -149,21 +149,25 @@ pub fn boyer_moore(pattern: &[u8], find: &[u8]) -> Result<usize,usize> {
     preprocess_bad_char(find, &mut bad_char_table[..]);
 
     // Searching
-    let mut j = 0;
+    let (mut i, mut j) = (size_find-1, 0);
     while j <= size_patt - size_find {
-        let i = {
-            let mut x = size_find - 1;
-            if find[x] == pattern[x + j] {
-                x -= 1;
-            }
-            x
-        };
+        while find[i] == pattern[i + j] && i > 0 {
+            i -= 1;
+        }
         if i == 0 {
-            j += good_sufix_table[0];
-            return Ok(j);
+            let mut k = 0;
+            while k < size_find && find[k] == pattern[j+k] {
+                k += 1;
+            }
+            if k == size_find {
+                return Ok(j);
+            }
+            else {
+                j += good_sufix_table[0];
+            }
         }
         else {
-            j += good_sufix_table[i].max(bad_char_table[pattern[i + j] as usize - size_find + 1 + i])
+            j += good_sufix_table[i].max(bad_char_table[pattern[i + j] as usize - size_find + 1 + i]);
         }
     }
 
@@ -180,7 +184,7 @@ pub fn boyer_moore(pattern: &[u8], find: &[u8]) -> Result<usize,usize> {
 /// |   Case    | Time complexity | Space complexity |
 /// |:----------|:---------------:|:----------------:|
 /// | Best:     | Ω(n/m)          |                  |
-/// | Avrg:     | θ(n)            |                  |
+/// | Avrg:     | θ(n+m)          |                  |
 /// | Worst:    | O(nm)           | O(δ)             |
 ///
 ///
@@ -284,7 +288,9 @@ pub mod test {
         let p = "ATCGGATTTCAGAAGCT".as_bytes();
 
         let find = bruteforce(&p, &"TTT".as_bytes());
+        let find2 = bruteforce(&p, &"AAG".as_bytes());
         assert_eq!(find, Ok(6));
+        assert_eq!(find2, Ok(12));
     }
 
     #[test]
@@ -292,7 +298,9 @@ pub mod test {
         let p = "ATCGGATTTCAGAAGCT".as_bytes();
 
         let find = karp_rabin(&p, &"TTT".as_bytes());
+        let find2 = karp_rabin(&p, &"AAG".as_bytes());
         assert_eq!(find, Ok(6));
+        assert_eq!(find2, Ok(12));
     }
 
     #[test]
@@ -300,7 +308,9 @@ pub mod test {
         let p = "ATCGGATTTCAGAAGCT".as_bytes();
 
         let find = boyer_moore(&p, &"TTT".as_bytes());
+        let find2 = boyer_moore(&p, &"AAG".as_bytes());
         assert_eq!(find, Ok(6));
+        assert_eq!(find2, Ok(12));
     }
 
     #[test]
@@ -308,6 +318,8 @@ pub mod test {
         let p = "ATCGGATTTCAGAAGCT".as_bytes();
 
         let find = horspool(&p, &"TTT".as_bytes());
+        let find2 = horspool(&p, &"AAG".as_bytes());
         assert_eq!(find, Ok(6));
+        assert_eq!(find2, Ok(12));
     }
 }

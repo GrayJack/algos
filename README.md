@@ -5,7 +5,7 @@
 
 A rust library with a collection of algorithms.
 
-Only sort algorithms for now.
+Only sort, search and pattern matching algorithms for now.
 It is planned to add graph algorithms as well.
 
 ## **Usage**
@@ -104,7 +104,7 @@ fn fn main() {
 ### String Matching
 - [X] Bruteforce
 - [X] Karp-Rabin
-- [ ] Boyer-Moore
+- [X] Boyer-Moore
 - [X] Horspool
 - [ ] Quick
 - [ ] Raita
