@@ -6,8 +6,7 @@
 **************************************************************************************************/
 
 //! This crate is a collection of algorithms.
-//! For now only sorting algorithms were implemented.
-//! It is planned to implement searching and graphs algorithms.
+//! For now only sorting, searching and pattern matching algorithms were implemented.
 
 extern crate rand;
 

@@ -32,17 +32,17 @@ pub fn bruteforce(pattern: &[u8], find: &[u8]) -> Result<usize,usize> {
     let (size_patt, size_find) = (pattern.len()-1, find.len()-1);
     let mut cnt = 0; // counter
     for i in 0..=size_patt-size_find {
-        for j in 0..size_find {
+        let mut j = 0;
+        while j < size_find && find[j] == pattern[i+j] {
             if pattern[i+j] != find[j] {
                 break;
             }
-            else {
-                cnt += 1;
-            }
+            j += 1;
         }
-    }
-    if cnt != 0 {
-        return Ok(cnt);
+        if j == size_find {
+            return Ok(i);
+        }
+        cnt += 1;
     }
     Err(cnt)
 }
@@ -246,7 +246,7 @@ fn preprocess_good_sufix(find: &[u8], good_sufix_table: &mut [usize]) {
             while good == 0 && find[good] == find[good + size-1 -f] {
                 good -= 1;
             }
-            suff[i] = f - good;
+            suff[i] = good-f;
         }
     }
 
