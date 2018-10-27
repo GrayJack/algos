@@ -9,6 +9,7 @@ repository = "https://github.com/GrayJack/algos"
 documentation = "https://docs.rs/algos"
 homepage = "https://crates.io/crates/algos"
 description = "A collection of algorithms in rust"
+exclude = ["/.travis.yml"]
 
 
 [dependencies]

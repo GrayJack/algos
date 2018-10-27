@@ -206,6 +206,7 @@ pub fn horspool(pattern: &[u8], find: &[u8]) -> Result<usize,usize> {
     // Preprocessing
     preprocess_bad_char(find, &mut bad_char_table[..]);
 
+    // Searching
     let (mut i, mut j) = (0, 0);
     while i <= size_patt - size_find {
         let c = pattern[i + size_find - 1];
@@ -278,6 +279,69 @@ fn preprocess_bad_char(find: &[u8], bad_char_table: &mut [usize]) {
     }
 }
 
+/// **Quick:** Search for the pattern in the `find` parameter in a slice.
+///
+/// It returns `Ok` holding the index of the first character of `find` that was found
+/// or `Err` holding the last index it searched if not find.
+///
+/// It is a simplification of the Boyer-Moore algorithm.
+///
+/// |   Case    | Time complexity | Space complexity |
+/// |:----------|:---------------:|:----------------:|
+/// | Best:     | Ω(n/m)          |                  |
+/// | Avrg:     | θ(n+m)          |                  |
+/// | Worst:    | O(nm)           | O(δ)             |
+///
+///
+/// **Obs.:** δ is the max size of u8.
+///
+/// # Example
+/// ```rust
+/// use algos::pattern;
+///
+/// let p = "ATCGGATTTCAGAAGCT".as_bytes();
+///
+/// let find = pattern::horspool(&p, &"TTT".as_bytes());
+/// assert_eq!(find, Ok(6));
+/// ```
+pub fn quick_matching(pattern: &[u8], find: &[u8]) -> Result<usize,usize> {
+    let (size_patt, size_find) = (pattern.len()-1, find.len()-1);
+    let mut bad_char_table = vec![0usize; 256];
+
+    // Preprocessing
+    preprocess_quick_bad_char(&find, &mut bad_char_table);
+
+    // Searching
+    let mut i = 0;
+    while i <= size_patt - size_find {
+        // Check one by one
+        let mut j = 0;
+        while j < size_find {
+            if pattern[i+j] != find[j] {
+                break;
+            }
+            j += 1;
+        }
+
+        if j == size_find {
+            return Ok(i);
+        }
+
+        i += bad_char_table[pattern[i + size_find] as usize];
+    }
+
+    Err(i)
+}
+
+fn preprocess_quick_bad_char(find: &[u8], bad_char_table: &mut [usize]) {
+    for i in 0..256 {
+        bad_char_table[i] = find.len() + 1;
+    }
+    for i in 0..find.len() {
+        bad_char_table[find[i] as usize] = find.len() - i;
+    }
+}
+
 
 #[cfg(test)]
 pub mod test {
@@ -319,6 +383,16 @@ pub mod test {
 
         let find = horspool(&p, &"TTT".as_bytes());
         let find2 = horspool(&p, &"AAG".as_bytes());
+        assert_eq!(find, Ok(6));
+        assert_eq!(find2, Ok(12));
+    }
+
+    #[test]
+    pub fn test_quick() {
+        let p = "ATCGGATTTCAGAAGCT".as_bytes();
+
+        let find = quick_matching(&p, &"TTT".as_bytes());
+        let find2 = quick_matching(&p, &"AAG".as_bytes());
         assert_eq!(find, Ok(6));
         assert_eq!(find2, Ok(12));
     }

@@ -109,5 +109,5 @@ fn fn main() {
 - [X] Karp-Rabin
 - [X] Boyer-Moore
 - [X] Horspool
-- [ ] Quick
-- [ ] Raita
+- [X] Quick
+- [ ] Two-Way
