@@ -23,9 +23,9 @@
 /// ```rust
 /// use algos::pattern;
 ///
-/// let p = "ATCGGATTTCAGAAGCT".as_bytes();
+/// let p = b"ATCGGATTTCAGAAGCT";
 ///
-/// let find = pattern::bruteforce(&p, &"TTT".as_bytes());
+/// let find = pattern::bruteforce(p, b"TTT");
 /// assert_eq!(find, Ok(6));
 /// ```
 pub fn bruteforce(pattern: &[u8], find: &[u8]) -> Result<usize,usize> {
@@ -62,9 +62,9 @@ pub fn bruteforce(pattern: &[u8], find: &[u8]) -> Result<usize,usize> {
 /// ```rust
 /// use algos::pattern;
 ///
-/// let p = "ATCGGATTTCAGAAGCT".as_bytes();
+/// let p = b"ATCGGATTTCAGAAGCT";
 ///
-/// let find = pattern::karp_rabin(&p, &"TTT".as_bytes());
+/// let find = pattern::karp_rabin(p, b"TTT");
 /// assert_eq!(find, Ok(6));
 /// ```
 pub fn karp_rabin(pattern: &[u8], find: &[u8]) -> Result<usize,usize> {
@@ -79,7 +79,7 @@ pub fn karp_rabin(pattern: &[u8], find: &[u8]) -> Result<usize,usize> {
     // 2^(m-1)
     let base = {
         let mut x = 1;
-        for _ in 1..size_find { x = x<<1 }
+        for _ in 1..size_find { x <<= 1 }
         x
     };
     // Calculate the hashes
@@ -133,9 +133,9 @@ pub fn karp_rabin(pattern: &[u8], find: &[u8]) -> Result<usize,usize> {
 /// ```rust
 /// use algos::pattern;
 ///
-/// let p = "ATCGGATTTCAGAAGCT".as_bytes();
+/// let p = b"ATCGGATTTCAGAAGCT";
 ///
-/// let find = pattern::boyer_moore(&p, &"TTT".as_bytes());
+/// let find = pattern::boyer_moore(p, b"TTT");
 /// assert_eq!(find, Ok(6));
 /// ```
 pub fn boyer_moore(pattern: &[u8], find: &[u8]) -> Result<usize,usize> {
@@ -194,9 +194,9 @@ pub fn boyer_moore(pattern: &[u8], find: &[u8]) -> Result<usize,usize> {
 /// ```rust
 /// use algos::pattern;
 ///
-/// let p = "ATCGGATTTCAGAAGCT".as_bytes();
+/// let p = b"ATCGGATTTCAGAAGCT";
 ///
-/// let find = pattern::horspool(&p, &"TTT".as_bytes());
+/// let find = pattern::horspool(p, b"TTT");
 /// assert_eq!(find, Ok(6));
 /// ```
 pub fn horspool(pattern: &[u8], find: &[u8]) -> Result<usize,usize> {
@@ -254,7 +254,7 @@ fn preprocess_good_sufix(find: &[u8], good_sufix_table: &mut [usize]) {
     for i in 0..size {
         good_sufix_table[i] = size;
     }
-    for i in (0..=size-1).rev() {
+    for i in (0..size).rev() {
         if suff[i] == i+1 {
             for j in 0..size-1 {
                 if good_sufix_table[j] == size {
@@ -263,7 +263,7 @@ fn preprocess_good_sufix(find: &[u8], good_sufix_table: &mut [usize]) {
             }
         }
     }
-    for i in 0..=size-1 {
+    for i in 0..size {
         good_sufix_table[size - 1 - suff[i] as usize] = size - 1 - i;
     }
 }
@@ -271,7 +271,7 @@ fn preprocess_good_sufix(find: &[u8], good_sufix_table: &mut [usize]) {
 fn preprocess_bad_char(find: &[u8], bad_char_table: &mut [usize]) {
     let size = find.len()-1;
 
-    for i in 0..256 {
+    for i in 0..bad_char_table.len() {
         bad_char_table[i] = size;
     }
     for i in 0..size-1 {
@@ -299,9 +299,9 @@ fn preprocess_bad_char(find: &[u8], bad_char_table: &mut [usize]) {
 /// ```rust
 /// use algos::pattern;
 ///
-/// let p = "ATCGGATTTCAGAAGCT".as_bytes();
+/// let p = b"ATCGGATTTCAGAAGCT";
 ///
-/// let find = pattern::horspool(&p, &"TTT".as_bytes());
+/// let find = pattern::quick_matching(p, b"TTT");
 /// assert_eq!(find, Ok(6));
 /// ```
 pub fn quick_matching(pattern: &[u8], find: &[u8]) -> Result<usize,usize> {
@@ -334,7 +334,7 @@ pub fn quick_matching(pattern: &[u8], find: &[u8]) -> Result<usize,usize> {
 }
 
 fn preprocess_quick_bad_char(find: &[u8], bad_char_table: &mut [usize]) {
-    for i in 0..256 {
+    for i in 0..bad_char_table.len() {
         bad_char_table[i] = find.len() + 1;
     }
     for i in 0..find.len() {
@@ -349,50 +349,50 @@ pub mod test {
 
     #[test]
     pub fn test_bruteforce() {
-        let p = "ATCGGATTTCAGAAGCT".as_bytes();
+        let p = b"ATCGGATTTCAGAAGCT";
 
-        let find = bruteforce(&p, &"TTT".as_bytes());
-        let find2 = bruteforce(&p, &"AAG".as_bytes());
+        let find = bruteforce(p, b"TTT");
+        let find2 = bruteforce(p, b"AAG");
         assert_eq!(find, Ok(6));
         assert_eq!(find2, Ok(12));
     }
 
     #[test]
     pub fn test_karp_rabin() {
-        let p = "ATCGGATTTCAGAAGCT".as_bytes();
+        let p = b"ATCGGATTTCAGAAGCT";
 
-        let find = karp_rabin(&p, &"TTT".as_bytes());
-        let find2 = karp_rabin(&p, &"AAG".as_bytes());
+        let find = karp_rabin(p, b"TTT");
+        let find2 = karp_rabin(p, b"AAG");
         assert_eq!(find, Ok(6));
         assert_eq!(find2, Ok(12));
     }
 
     #[test]
     pub fn test_boyer_moore() {
-        let p = "ATCGGATTTCAGAAGCT".as_bytes();
+        let p = b"ATCGGATTTCAGAAGCT";
 
-        let find = boyer_moore(&p, &"TTT".as_bytes());
-        let find2 = boyer_moore(&p, &"AAG".as_bytes());
+        let find = boyer_moore(p, b"TTT");
+        let find2 = boyer_moore(p, b"AAG");
         assert_eq!(find, Ok(6));
         assert_eq!(find2, Ok(12));
     }
 
     #[test]
     pub fn test_horspool() {
-        let p = "ATCGGATTTCAGAAGCT".as_bytes();
+        let p = b"ATCGGATTTCAGAAGCT";
 
-        let find = horspool(&p, &"TTT".as_bytes());
-        let find2 = horspool(&p, &"AAG".as_bytes());
+        let find = horspool(p, b"TTT");
+        let find2 = horspool(p, b"AAG");
         assert_eq!(find, Ok(6));
         assert_eq!(find2, Ok(12));
     }
 
     #[test]
     pub fn test_quick() {
-        let p = "ATCGGATTTCAGAAGCT".as_bytes();
+        let p = b"ATCGGATTTCAGAAGCT";
 
-        let find = quick_matching(&p, &"TTT".as_bytes());
-        let find2 = quick_matching(&p, &"AAG".as_bytes());
+        let find = quick_matching(p, b"TTT");
+        let find2 = quick_matching(p, b"AAG");
         assert_eq!(find, Ok(6));
         assert_eq!(find2, Ok(12));
     }
