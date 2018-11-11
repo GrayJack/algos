@@ -13,6 +13,10 @@ use std::cmp::*;
 
 /// **Linear Search:** Search for the value 'x' in an array.
 ///
+/// If the value is found then `Ok` is returned, containing the index of the matching element;
+/// if the value is not found then `Err` is returned, containing the index where a matching
+/// element could be inserted while maintaining sorted order.
+///
 /// Returns `Err` holding the last iterator if 'x' not found and array[i] > x.
 ///
 ///
@@ -48,6 +52,10 @@ pub fn linear<T: Ord>(a: &[T], x: &T) -> Result<usize,usize> {
 
 /// **Binary Search:** Search for the value 'x' in an array.
 ///
+/// If the value is found then `Ok` is returned, containing the index of the matching element;
+/// if the value is not found then `Err` is returned, containing the index where a matching
+/// element could be inserted while maintaining sorted order.
+///
 /// Returns `Err` holding the leftmost term if 'x' not found.
 ///
 ///
@@ -63,23 +71,23 @@ pub fn linear<T: Ord>(a: &[T], x: &T) -> Result<usize,usize> {
 ///
 /// let v = [1, 3, 4, 8, 11, 17, 23];
 ///
-/// let find = search::binary(&v, 11);
+/// let find = search::binary(&v, &11);
 /// assert_eq!(find, Ok(4));
 ///
-/// let find2 = search::binary(&v, 19);
+/// let find2 = search::binary(&v, &19);
 /// assert_eq!(find2, Err(6));
 /// ```
-pub fn binary<T: Ord>(a: &[T], x: T) -> Result<usize,usize> {
+pub fn binary<T: Ord>(a: &[T], x: &T) -> Result<usize,usize> {
     let (mut l, mut r) = (0, a.len());
     // Looks like I'm unable to make a recursive implementation, so I made interative.
     while l <= r {
         // This has the same result as (l+r)/2, but it's probably the same or faster.
         let mid = (l+r) >> 1;
 
-        if a[mid] > x {
+        if a[mid] > *x {
             r = mid - 1;
         }
-        else if a[mid] < x {
+        else if a[mid] < *x {
             l = mid + 1;
         }
         else {
@@ -91,6 +99,10 @@ pub fn binary<T: Ord>(a: &[T], x: T) -> Result<usize,usize> {
 
 /// **Exponential Search:** Search for the value 'x' in an array.
 ///
+/// If the value is found then `Ok` is returned, containing the index of the matching element;
+/// if the value is not found then `Err` is returned, containing the index where a matching
+/// element could be inserted while maintaining sorted order.
+///
 /// Returns `Err` holding the leftmost term if 'x' not found.
 ///
 /// **Obs.:** Variation of binary search.
@@ -107,19 +119,19 @@ pub fn binary<T: Ord>(a: &[T], x: T) -> Result<usize,usize> {
 ///
 /// let v = [1, 3, 4, 8, 11, 17, 23];
 ///
-/// let find = search::exponential(&v, 11);
+/// let find = search::exponential(&v, &11);
 /// assert_eq!(find, Ok(4));
 ///
-/// let find2 = search::exponential(&v, 19);
+/// let find2 = search::exponential(&v, &19);
 /// assert_eq!(find2, Err(6));
 /// ```
-pub fn exponential<T: Ord>(a: &[T], x: T) -> Result<usize,usize> {
-    if a[0] == x {
+pub fn exponential<T: Ord>(a: &[T], x: &T) -> Result<usize,usize> {
+    if a[0] == *x {
         return Ok(0);
     }
 
     let mut range = 1;
-    while range < a.len() && a[range] <= x {
+    while range < a.len() && a[range] <= *x {
         range *= 2;
     }
 
@@ -128,10 +140,10 @@ pub fn exponential<T: Ord>(a: &[T], x: T) -> Result<usize,usize> {
         // This has the same result as (l+r)/2, but it's probably the same or faster.
         let mid = (l+r) >> 1;
 
-        if a[mid] > x {
+        if a[mid] > *x {
             r = mid - 1;
         }
-        else if a[mid] < x {
+        else if a[mid] < *x {
             l = mid + 1;
         }
         else {
@@ -143,6 +155,10 @@ pub fn exponential<T: Ord>(a: &[T], x: T) -> Result<usize,usize> {
 
 /// **Fibonacci Search:** Search for the value 'x' in an array.
 ///
+/// If the value is found then `Ok` is returned, containing the index of the matching element;
+/// if the value is not found then `Err` is returned, containing the index where a matching
+/// element could be inserted while maintaining sorted order.
+///
 /// Returns `Err` holding the leftmost term if 'x' not found.
 ///
 /// **Obs.:** Variation of binary search.
@@ -159,13 +175,13 @@ pub fn exponential<T: Ord>(a: &[T], x: T) -> Result<usize,usize> {
 ///
 /// let v = [1, 3, 4, 8, 11, 17, 23];
 ///
-/// let find = search::fibonacci(&v, 11);
+/// let find = search::fibonacci(&v, &11);
 /// assert_eq!(find, Ok(4));
 ///
-/// let find2 = search::fibonacci(&v, 19);
+/// let find2 = search::fibonacci(&v, &19);
 /// assert_eq!(find2, Err(3));
 /// ```
-pub fn fibonacci<T: Ord>(a: &[T], x: T) -> Result<usize,usize> {
+pub fn fibonacci<T: Ord>(a: &[T], x: &T) -> Result<usize,usize> {
     let (mut fib1, mut fib2) = (0, 1);
     let mut fibn = fib1 + fib2;
 
@@ -181,13 +197,13 @@ pub fn fibonacci<T: Ord>(a: &[T], x: T) -> Result<usize,usize> {
     while fibn > 1 {
         let i = (off+fib1-1).min(a.len());
 
-        if a[i] < x {
+        if a[i] < *x {
             fibn = fib2;
             fib2 = fib1;
             fib1 = fibn - fib2;
             off = i;
         }
-        else if a[i] > x {
+        else if a[i] > *x {
             fibn = fib1;
             fib2 -= fib1;
             fib1 = fibn - fib2;
@@ -197,7 +213,7 @@ pub fn fibonacci<T: Ord>(a: &[T], x: T) -> Result<usize,usize> {
         }
     }
 
-    if fib2 == 1 && a[off+1] == x {
+    if fib2 == 1 && a[off+1] == *x {
         return Ok(off+1)
     }
 
@@ -223,30 +239,30 @@ pub mod test {
     pub fn binary_test() {
         let v = [1, 3, 4, 8, 11, 17, 23];
 
-        let find = binary(&v, 11);
+        let find = binary(&v, &11);
         assert_eq!(find, Ok(4));
 
-        let find2 = binary(&v, 19);
+        let find2 = binary(&v, &19);
         assert_eq!(find2, Err(6));
     }
     #[test]
     pub fn exponential_test() {
         let v = [1, 3, 4, 8, 11, 17, 23];
 
-        let find = exponential(&v, 11);
+        let find = exponential(&v, &11);
         assert_eq!(find, Ok(4));
 
-        let find2 = exponential(&v, 19);
+        let find2 = exponential(&v, &19);
         assert_eq!(find2, Err(6));
     }
     #[test]
     pub fn fibonacci_test() {
         let v = [1, 3, 4, 8, 11, 17, 23];
 
-        let find = fibonacci(&v, 11);
+        let find = fibonacci(&v, &11);
         assert_eq!(find, Ok(4));
 
-        let find2 = fibonacci(&v, 19);
+        let find2 = fibonacci(&v, &19);
         assert_eq!(find2, Err(3));
     }
 
