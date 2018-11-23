@@ -159,7 +159,6 @@ pub fn exponential<T: Ord>(a: &[T], x: &T) -> Result<usize,usize> {
 /// if the value is not found then `Err` is returned, containing the index where a matching
 /// element could be inserted while maintaining sorted order.
 ///
-/// Returns `Err` holding the leftmost term if 'x' not found.
 ///
 /// **Obs.:** Variation of binary search.
 ///
@@ -229,41 +228,57 @@ pub mod test {
     pub fn linear_test() {
         let v = [1, 3, 4, 8, 11, 17, 23];
 
-        let find = linear(&v, &11);
-        assert_eq!(find, Ok(4));
+        let ok1 = linear(&v, &1);
+        let ok2 = linear(&v, &11);
+        assert_eq!(ok1, Ok(0));
+        assert_eq!(ok2, Ok(4));
 
-        let find2 = linear(&v, &19);
-        assert_eq!(find2, Err(6));
+        let err1 = linear(&v, &19);
+        let err2 = linear(&v, &13);
+        assert_eq!(err1, Err(6));
+        assert_eq!(err2, Err(5));
     }
     #[test]
     pub fn binary_test() {
         let v = [1, 3, 4, 8, 11, 17, 23];
 
-        let find = binary(&v, &11);
-        assert_eq!(find, Ok(4));
+        let ok1 = binary(&v, &1);
+        let ok2 = binary(&v, &11);
+        assert_eq!(ok1, Ok(0));
+        assert_eq!(ok2, Ok(4));
 
-        let find2 = binary(&v, &19);
-        assert_eq!(find2, Err(6));
+        let err1 = binary(&v, &19);
+        let err2 = binary(&v, &13);
+        assert_eq!(err1, Err(6));
+        assert_eq!(err2, Err(5));
     }
     #[test]
     pub fn exponential_test() {
         let v = [1, 3, 4, 8, 11, 17, 23];
 
-        let find = exponential(&v, &11);
-        assert_eq!(find, Ok(4));
+        let ok1 = exponential(&v, &1);
+        let ok2 = exponential(&v, &11);
+        assert_eq!(ok1, Ok(0));
+        assert_eq!(ok2, Ok(4));
 
-        let find2 = exponential(&v, &19);
-        assert_eq!(find2, Err(6));
+        let err1 = exponential(&v, &19);
+        let err2 = exponential(&v, &13);
+        assert_eq!(err1, Err(6));
+        assert_eq!(err2, Err(5));
     }
     #[test]
     pub fn fibonacci_test() {
         let v = [1, 3, 4, 8, 11, 17, 23];
 
-        let find = fibonacci(&v, &11);
-        assert_eq!(find, Ok(4));
+        let ok1 = fibonacci(&v, &1);
+        let ok2 = fibonacci(&v, &11);
+        assert_eq!(ok1, Ok(0));
+        assert_eq!(ok2, Ok(4));
 
-        let find2 = fibonacci(&v, &19);
-        assert_eq!(find2, Err(3));
+        let err1 = fibonacci(&v, &19);
+        let err2 = fibonacci(&v, &13);
+        assert_eq!(err1, Err(3));
+        assert_eq!(err2, Err(3));
     }
 
 }

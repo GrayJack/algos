@@ -10,8 +10,8 @@
 
 /// **Brute Force:** Search for the pattern in the `find` parameter in a slice.
 ///
-/// It returns `Ok` holding the index of the first character of `find` that was found
-/// or `Err` holding the last index it searched if not find.
+/// It returns `Some` holding the index of the first character of `find` that was found
+/// or `None` if not find.
 ///
 /// |   Case    | Time complexity | Space complexity |
 /// |:----------|:---------------:|:----------------:|
@@ -26,31 +26,23 @@
 /// let p = b"ATCGGATTTCAGAAGCT";
 ///
 /// let find = pattern::bruteforce(p, b"TTT");
-/// assert_eq!(find, Ok(6));
+/// assert_eq!(find, Some(6));
 /// ```
-pub fn bruteforce(pattern: &[u8], find: &[u8]) -> Result<usize,usize> {
-    let (size_patt, size_find) = (pattern.len()-1, find.len()-1);
-    let mut cnt = 0; // counter
+pub fn bruteforce(pattern: &[u8], find: &[u8]) -> Option<usize> {
+    let (size_patt, size_find) = (pattern.len(), find.len());
     for i in 0..=size_patt-size_find {
-        let mut j = 0;
-        while j < size_find && find[j] == pattern[i+j] {
-            if pattern[i+j] != find[j] {
-                break;
-            }
-            j += 1;
+        if &pattern[i..(i + size_find)] == find {
+            return Some(i);
         }
-        if j == size_find {
-            return Ok(i);
-        }
-        cnt += 1;
     }
-    Err(cnt)
+
+    None
 }
 
 /// **Karp-Rabin:** Search for the pattern in the `find` parameter in a slice.
 ///
-/// It returns `Ok` holding the index of the first character of `find` that was found
-/// or `Err` holding the last index it searched if not find.
+/// It returns `Some` holding the index of the first character of `find` that was found
+/// or `None` if not find.
 ///
 /// |   Case    | Time complexity | Space complexity |
 /// |:----------|:---------------:|:----------------:|
@@ -65,10 +57,10 @@ pub fn bruteforce(pattern: &[u8], find: &[u8]) -> Result<usize,usize> {
 /// let p = b"ATCGGATTTCAGAAGCT";
 ///
 /// let find = pattern::karp_rabin(p, b"TTT");
-/// assert_eq!(find, Ok(6));
+/// assert_eq!(find, Some(6));
 /// ```
-pub fn karp_rabin(pattern: &[u8], find: &[u8]) -> Result<usize,usize> {
-    let (size_patt, size_find) = (pattern.len()-1, find.len()-1);
+pub fn karp_rabin(pattern: &[u8], find: &[u8]) -> Option<usize> {
+    let (size_patt, size_find) = (pattern.len()-1, find.len());
 
     // Preprocessing
     // TODO: There is a way to do the preprocessing using dynamic programming, making the
@@ -77,48 +69,42 @@ pub fn karp_rabin(pattern: &[u8], find: &[u8]) -> Result<usize,usize> {
     let rehash = |a, b, hash, base| (((hash - a*base) << 1) + b);
 
     // 2^(m-1)
-    let base = {
-        let mut x = 1;
-        for _ in 1..size_find { x <<= 1 }
-        x
-    };
+    let base: u64 = 1 << (size_find-1);
+
     // Calculate the hashes
-    let (mut hash_patt, hash_find) = {
-        let (mut x, mut y) = (0, 0);
-        for i in 0..size_find {
-            y = (y << 1) + find[i];
-            x = (x << 1) + pattern[i];
-        }
-        (x, y)
-    };
+    let (hash_find, mut hash_patt) = find.iter()
+        .take(size_find)
+        .zip(pattern.iter())
+        .fold((0_u64, 0_u64), |(hash_find, hash_patt), (&find, &patt)| {
+            (
+                (hash_find << 1) + u64::from(find),
+                (hash_patt << 1) + u64::from(patt),
+            )
+        },
+    );
 
     // Searching
-    let (mut i, mut j) = (0, 0);
+    let mut i = 0;
     while i <= size_patt-size_find {
-        if hash_patt == hash_find {
-            // Check one by one
-            while j < size_find {
-                if pattern[i+j] != find[j] {
-                    break;
-                }
-                j += 1;
-            }
-
-            if j == size_find {
-                return Ok(i);
-            }
+        if hash_patt == hash_find && &pattern[i..(i + size_find)] == find {
+            return Some(i);
         }
 
-        hash_patt = rehash(pattern[i], pattern[i+size_find], hash_patt, base);
+        hash_patt = rehash(u64::from(pattern[i]), u64::from(pattern[i+size_find]), hash_patt, base);
         i += 1;
     }
-    Err(i)
+    // Check again after the loops end.
+    if hash_patt == hash_find && &pattern[i..(i + size_find)] == find {
+        return Some(i);
+    }
+
+    None
 }
 
 /// **Boyer-Moore:** Search for the pattern in the `find` parameter in a slice.
 ///
-/// It returns `Ok` holding the index of the first character of `find` that was found
-/// or `Err` holding the last index it searched if not find.
+/// It returns `Some` holding the index of the first character of `find` that was found
+/// or `None` if not find.
 ///
 /// |   Case    | Time complexity | Space complexity |
 /// |:----------|:---------------:|:----------------:|
@@ -136,48 +122,42 @@ pub fn karp_rabin(pattern: &[u8], find: &[u8]) -> Result<usize,usize> {
 /// let p = b"ATCGGATTTCAGAAGCT";
 ///
 /// let find = pattern::boyer_moore(p, b"TTT");
-/// assert_eq!(find, Ok(6));
+/// assert_eq!(find, Some(6));
 /// ```
-pub fn boyer_moore(pattern: &[u8], find: &[u8]) -> Result<usize,usize> {
+pub fn boyer_moore(pattern: &[u8], find: &[u8]) -> Option<usize> {
     let (size_patt, size_find) = (pattern.len()-1, find.len());
     let mut good_sufix_table = vec![0usize; size_find];
-    let mut bad_char_table   = [0usize; 256];
+    let mut bad_char_table = [0usize; 256];
 
     // Preprocessing
-    // Good sufix
     preprocess_good_sufix(find, &mut good_sufix_table[..]);
     preprocess_bad_char(find, &mut bad_char_table[..]);
 
     // Searching
-    let (mut i, mut j) = (size_find-1, 0);
-    while j <= size_patt - size_find {
-        while find[i] == pattern[i + j] && i > 0 {
-            i -= 1;
+    let mut i = 0;
+    while i <= size_patt - size_find {
+        let mut j = size_find-1;
+        while find[j] == pattern[j + i] && j > 0 {
+            j -= 1;
         }
-        if i == 0 {
-            let mut k = 0;
-            while k < size_find && find[k] == pattern[j+k] {
-                k += 1;
+        if j == 0 {
+            if &pattern[i..(i + size_find)] == find {
+                return Some(i);
             }
-            if k == size_find {
-                return Ok(j);
-            }
-            else {
-                j += good_sufix_table[0];
-            }
+            i += good_sufix_table[0];
         }
         else {
-            j += good_sufix_table[i].max(bad_char_table[pattern[i + j] as usize - size_find + 1 + i]);
+            i += good_sufix_table[j].max(bad_char_table[pattern[j + i] as usize - size_find + 1 + j]);
         }
     }
 
-    Err(j)
+    None
 }
 
 /// **Horspool:** Search for the pattern in the `find` parameter in a slice.
 ///
-/// It returns `Ok` holding the index of the first character of `find` that was found
-/// or `Err` holding the last index it searched if not find.
+/// It returns `Some` holding the index of the first character of `find` that was found
+/// or `None` if not find.
 ///
 /// It is a variation of the Boyer-Moore algorithm.
 ///
@@ -197,41 +177,32 @@ pub fn boyer_moore(pattern: &[u8], find: &[u8]) -> Result<usize,usize> {
 /// let p = b"ATCGGATTTCAGAAGCT";
 ///
 /// let find = pattern::horspool(p, b"TTT");
-/// assert_eq!(find, Ok(6));
+/// assert_eq!(find, Some(6));
 /// ```
-pub fn horspool(pattern: &[u8], find: &[u8]) -> Result<usize,usize> {
-    let (size_patt, size_find) = (pattern.len()-1, find.len()-1);
+pub fn horspool(pattern: &[u8], find: &[u8]) -> Option<usize> {
+    let (size_patt, size_find) = (pattern.len(), find.len());
     let mut bad_char_table = [0usize; 256];
 
     // Preprocessing
     preprocess_bad_char(find, &mut bad_char_table[..]);
 
     // Searching
-    let (mut i, mut j) = (0, 0);
+    let mut i = 0;
     while i <= size_patt - size_find {
         let c = pattern[i + size_find - 1];
-        if find[size_find - 1] == c {
-            // Check one by one
-            while j < size_find {
-                if pattern[i+j] != find[j] {
-                    break;
-                }
-                j += 1;
-            }
-
-            if j == size_find {
-                return Ok(i);
-            }
+        if find[size_find - 1] == c && &pattern[i..(i + size_find)] == find {
+            return Some(i);
         }
 
         i += bad_char_table[c as usize];
     }
 
-    Err(i)
+    None
 }
 
 fn preprocess_good_sufix(find: &[u8], good_sufix_table: &mut [usize]) {
-    let size = find.len() - 1;
+    let size = find.len();
+
     // Good sufix
     let mut suff = vec![0; size];
     let mut good = size-1;
@@ -244,21 +215,21 @@ fn preprocess_good_sufix(find: &[u8], good_sufix_table: &mut [usize]) {
         else {
             good = if (good) < i { i } else { good };
             f = i;
-            while good == 0 && find[good] == find[good + size-1 -f] {
+            while good == 0 && find[good] == find[good + size-1 - f] {
                 good -= 1;
             }
-            suff[i] = good-f;
+            suff[i] = good - f;
         }
     }
 
-    for i in 0..size {
-        good_sufix_table[i] = size;
+    for i in good_sufix_table.iter_mut().take(size) {
+        *i = size;
     }
     for i in (0..size).rev() {
         if suff[i] == i+1 {
-            for j in 0..size-1 {
-                if good_sufix_table[j] == size {
-                    good_sufix_table[j] = size - i - 1;
+            for j in good_sufix_table.iter_mut().take(size-1) {
+                if *j == size {
+                    *j = size - i - 1;
                 }
             }
         }
@@ -269,10 +240,10 @@ fn preprocess_good_sufix(find: &[u8], good_sufix_table: &mut [usize]) {
 }
 
 fn preprocess_bad_char(find: &[u8], bad_char_table: &mut [usize]) {
-    let size: usize = find.len()-1;
+    let size: usize = find.len();
 
-    for i in 0..bad_char_table.len() {
-        bad_char_table[i] = size;
+    for i in bad_char_table.iter_mut() {
+        *i = size;
     }
     for i in 0..size-1 {
         bad_char_table[find[i] as usize] = size - i - 1;
@@ -281,8 +252,8 @@ fn preprocess_bad_char(find: &[u8], bad_char_table: &mut [usize]) {
 
 /// **Quick:** Search for the pattern in the `find` parameter in a slice.
 ///
-/// It returns `Ok` holding the index of the first character of `find` that was found
-/// or `Err` holding the last index it searched if not find.
+/// It returns `Some` holding the index of the first character of `find` that was found
+/// or `None` if not find.
 ///
 /// It is a simplification of the Boyer-Moore algorithm.
 ///
@@ -302,10 +273,10 @@ fn preprocess_bad_char(find: &[u8], bad_char_table: &mut [usize]) {
 /// let p = b"ATCGGATTTCAGAAGCT";
 ///
 /// let find = pattern::quick_matching(p, b"TTT");
-/// assert_eq!(find, Ok(6));
+/// assert_eq!(find, Some(6));
 /// ```
-pub fn quick_matching(pattern: &[u8], find: &[u8]) -> Result<usize,usize> {
-    let (size_patt, size_find) = (pattern.len()-1, find.len()-1);
+pub fn quick_matching(pattern: &[u8], find: &[u8]) -> Option<usize> {
+    let (size_patt, size_find) = (pattern.len(), find.len());
     let mut bad_char_table = [0usize; 256];
 
     // Preprocessing
@@ -314,28 +285,19 @@ pub fn quick_matching(pattern: &[u8], find: &[u8]) -> Result<usize,usize> {
     // Searching
     let mut i = 0;
     while i <= size_patt - size_find {
-        // Check one by one
-        let mut j = 0;
-        while j < size_find {
-            if pattern[i+j] != find[j] {
-                break;
-            }
-            j += 1;
-        }
-
-        if j == size_find {
-            return Ok(i);
+        if &pattern[i..(i + size_find)] == find {
+            return Some(i);
         }
 
         i += bad_char_table[pattern[i + size_find] as usize];
     }
 
-    Err(i)
+    None
 }
 
 fn preprocess_quick_bad_char(find: &[u8], bad_char_table: &mut [usize]) {
-    for i in 0..bad_char_table.len() {
-        bad_char_table[i] = find.len() + 1;
+    for i in bad_char_table.iter_mut() {
+        *i = find.len() + 1;
     }
     for i in 0..find.len() {
         bad_char_table[find[i] as usize] = find.len() - i;
@@ -351,49 +313,79 @@ pub mod test {
     pub fn test_bruteforce() {
         let p = b"ATCGGATTTCAGAAGCT";
 
-        let find = bruteforce(p, b"TTT");
-        let find2 = bruteforce(p, b"AAG");
-        assert_eq!(find, Ok(6));
-        assert_eq!(find2, Ok(12));
+        let start = bruteforce(p, b"ATC");
+        let middle1 = bruteforce(p, b"TTT");
+        let middle2 = bruteforce(p, b"AAG");
+        let end = bruteforce(p, b"GCT");
+        let none = bruteforce(p, b"TTTT");
+        assert_eq!(start, Some(0));
+        assert_eq!(middle1, Some(6));
+        assert_eq!(middle2, Some(12));
+        assert_eq!(end, Some(14));
+        assert_eq!(none, None);
     }
 
     #[test]
     pub fn test_karp_rabin() {
         let p = b"ATCGGATTTCAGAAGCT";
 
-        let find = karp_rabin(p, b"TTT");
-        let find2 = karp_rabin(p, b"AAG");
-        assert_eq!(find, Ok(6));
-        assert_eq!(find2, Ok(12));
+        let start = karp_rabin(p, b"ATC");
+        let middle1 = karp_rabin(p, b"TTT");
+        let middle2 = karp_rabin(p, b"AAG");
+        let end = karp_rabin(p, b"GCT");
+        let none = karp_rabin(p, b"TTTT");
+        assert_eq!(start, Some(0));
+        assert_eq!(middle1, Some(6));
+        assert_eq!(middle2, Some(12));
+        assert_eq!(end, Some(14));
+        assert_eq!(none, None);
     }
 
     #[test]
     pub fn test_boyer_moore() {
         let p = b"ATCGGATTTCAGAAGCT";
 
-        let find = boyer_moore(p, b"TTT");
-        let find2 = boyer_moore(p, b"AAG");
-        assert_eq!(find, Ok(6));
-        assert_eq!(find2, Ok(12));
+        let start = boyer_moore(p, b"ATC");
+        let middle1 = boyer_moore(p, b"TTT");
+        let middle2 = boyer_moore(p, b"AAG");
+        let end = boyer_moore(p, b"GCT");
+        let none = boyer_moore(p, b"TTTT");
+        assert_eq!(start, Some(0));
+        assert_eq!(middle1, Some(6));
+        assert_eq!(middle2, Some(12));
+        assert_eq!(end, Some(14));
+        assert_eq!(none, None);
     }
 
     #[test]
     pub fn test_horspool() {
         let p = b"ATCGGATTTCAGAAGCT";
 
-        let find = horspool(p, b"TTT");
-        let find2 = horspool(p, b"AAG");
-        assert_eq!(find, Ok(6));
-        assert_eq!(find2, Ok(12));
+        let start = horspool(p, b"ATC");
+        let middle1 = horspool(p, b"TTT");
+        let middle2 = horspool(p, b"AAG");
+        let end = horspool(p, b"GCT");
+        let none = horspool(p, b"TTTT");
+        assert_eq!(start, Some(0));
+        assert_eq!(middle1, Some(6));
+        assert_eq!(middle2, Some(12));
+        assert_eq!(end, Some(14));
+        assert_eq!(none, None);
     }
 
     #[test]
     pub fn test_quick() {
         let p = b"ATCGGATTTCAGAAGCT";
 
-        let find = quick_matching(p, b"TTT");
-        let find2 = quick_matching(p, b"AAG");
-        assert_eq!(find, Ok(6));
-        assert_eq!(find2, Ok(12));
+        let start = quick_matching(p, b"ATC");
+        let middle1 = quick_matching(p, b"TTT");
+        let middle2 = quick_matching(p, b"AAG");
+        let end = quick_matching(p, b"GCT");
+        let none = quick_matching(p, b"TTTT");
+        assert_eq!(start, Some(0));
+        assert_eq!(middle1, Some(6));
+        assert_eq!(middle2, Some(12));
+        assert_eq!(end, Some(14));
+        assert_eq!(none, None);
     }
 }
