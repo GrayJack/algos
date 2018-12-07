@@ -4,15 +4,11 @@
 *
 * This Source Code Form is subject to the terms of the BSD 3-Clause License.
 **************************************************************************************************/
-// TODO: Create basic methods (crescent sort)
-// TODO: Create methods to [sort]_by -> Look std docs
-// TODO: Create methods [sort]_by_key -> Look std docs
 
 //! A module for using sorting algorithms.
 //!
 //! It contains all major sorting algorithms.
 
-use std::cmp::*;
 use rand::prelude::{Rng, thread_rng};
 
 /// **Selection Sort:** Sort `v` slice according to the way you define the `cmp` parameter.

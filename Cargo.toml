@@ -1,6 +1,6 @@
 [package]
 name = "algos"
-version = "0.3.2"
+version = "0.3.3"
 authors = ["GrayJack <gr41.j4ck@gmail.com>"]
 readme = "README.md"
 license = "BSD-3-Clause"
@@ -13,4 +13,4 @@ exclude = ["/.travis.yml"]
 
 
 [dependencies]
-rand = "0.5"
+rand = "0.6"

@@ -107,7 +107,7 @@ fn fn main() {
 ### String Matching
 - [X] Bruteforce
 - [X] Karp-Rabin
-- [X] Boyer-Moore
+- [ ] Boyer-Moore
 - [X] Horspool
 - [X] Quick
 - [ ] Two-Way

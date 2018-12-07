@@ -9,8 +9,6 @@
 //!
 //! The array **must** be crescent ordered.
 
-use std::cmp::*;
-
 /// **Linear Search:** Search for the value `x` in an array.
 ///
 /// If the value is found then `Ok` is returned, containing the index of the matching element;

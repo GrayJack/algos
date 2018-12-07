@@ -124,7 +124,7 @@ pub fn karp_rabin(pattern: &[u8], find: &[u8]) -> Option<usize> {
 /// let find = pattern::boyer_moore(p, b"TTT");
 /// assert_eq!(find, Some(6));
 /// ```
-pub fn boyer_moore(pattern: &[u8], find: &[u8]) -> Option<usize> {
+fn boyer_moore(pattern: &[u8], find: &[u8]) -> Option<usize> {
     let (size_patt, size_find) = (pattern.len()-1, find.len());
     let mut good_sufix_table = vec![0usize; size_find];
     let mut bad_char_table = [0usize; 256];
@@ -341,21 +341,21 @@ pub mod test {
         assert_eq!(none, None);
     }
 
-    #[test]
-    pub fn test_boyer_moore() {
-        let p = b"ATCGGATTTCAGAAGCT";
-
-        let start = boyer_moore(p, b"ATC");
-        let middle1 = boyer_moore(p, b"TTT");
-        let middle2 = boyer_moore(p, b"AAG");
-        let end = boyer_moore(p, b"GCT");
-        let none = boyer_moore(p, b"TTTT");
-        assert_eq!(start, Some(0));
-        assert_eq!(middle1, Some(6));
-        assert_eq!(middle2, Some(12));
-        assert_eq!(end, Some(14));
-        assert_eq!(none, None);
-    }
+    // #[test]
+    // pub fn test_boyer_moore() {
+    //     let p = b"ATCGGATTTCAGAAGCT";
+    //
+    //     let start = boyer_moore(p, b"ATC");
+    //     let middle1 = boyer_moore(p, b"TTT");
+    //     let middle2 = boyer_moore(p, b"AAG");
+    //     let end = boyer_moore(p, b"GCT");
+    //     let none = boyer_moore(p, b"TTTT");
+    //     assert_eq!(start, Some(0));
+    //     assert_eq!(middle1, Some(6));
+    //     assert_eq!(middle2, Some(12));
+    //     assert_eq!(end, Some(14));
+    //     assert_eq!(none, None);
+    // }
 
     #[test]
     pub fn test_horspool() {
