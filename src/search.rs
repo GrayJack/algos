@@ -220,7 +220,7 @@ pub fn fibonacci<T: Ord>(v: &[T], x: &T) -> Result<usize,usize> {
 
 #[cfg(test)]
 pub mod test {
-    use search::*;
+    use super::*;
 
     #[test]
     pub fn linear_test() {

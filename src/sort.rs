@@ -301,7 +301,7 @@ fn heapify<T: Copy+Ord, C: Fn(&T, &T) -> bool>(v: &mut [T], cmp: &C, node: usize
 
 #[cfg(test)]
 pub mod test {
-    use sort::*;
+    use super::*;
 
     #[test]
     pub fn selection_test() {
