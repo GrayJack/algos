@@ -4,6 +4,13 @@
 *
 * This Source Code Form is subject to the terms of the BSD 3-Clause License.
 **************************************************************************************************/
+// #![warn(
+//     clippy::all,
+//     clippy::restriction,
+//     clippy::pedantic,
+//     clippy::nursery,
+//     clippy::cargo,
+// )]
 
 //! A module for using pattern matching algorithms.
 //!
@@ -310,7 +317,7 @@ pub mod test {
     use super::*;
 
     #[test]
-    pub fn test_bruteforce() {
+    pub fn bruteforce_cases() {
         let p = b"ATCGGATTTCAGAAGCT";
 
         let start = bruteforce(p, b"ATC");
@@ -326,7 +333,7 @@ pub mod test {
     }
 
     #[test]
-    pub fn test_karp_rabin() {
+    pub fn karp_rabin_cases() {
         let p = b"ATCGGATTTCAGAAGCT";
 
         let start = karp_rabin(p, b"ATC");
@@ -343,7 +350,7 @@ pub mod test {
 
     #[test]
     #[ignore]
-    pub fn test_boyer_moore() {
+    pub fn boyer_moore_cases() {
         let p = b"ATCGGATTTCAGAAGCT";
 
         let start = boyer_moore(p, b"ATC");
@@ -359,7 +366,7 @@ pub mod test {
     }
 
     #[test]
-    pub fn test_horspool() {
+    pub fn horspool_cases() {
         let p = b"ATCGGATTTCAGAAGCT";
 
         let start = horspool(p, b"ATC");
@@ -375,7 +382,7 @@ pub mod test {
     }
 
     #[test]
-    pub fn test_quick() {
+    pub fn quick_cases() {
         let p = b"ATCGGATTTCAGAAGCT";
 
         let start = quick_matching(p, b"ATC");
