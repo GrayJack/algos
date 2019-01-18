@@ -133,8 +133,8 @@ pub fn karp_rabin(pattern: &[u8], find: &[u8]) -> Option<usize> {
 /// ```
 pub fn boyer_moore(pattern: &[u8], find: &[u8]) -> Option<usize> {
     let (size_patt, size_find) = (pattern.len()-1, find.len());
-    let mut good_sufix_table = vec![0usize; size_find];
-    let mut bad_char_table = [0usize; 256];
+    let mut good_sufix_table = vec![0_usize; size_find];
+    let mut bad_char_table = [0_usize; 256];
 
     // Preprocessing
     preprocess_good_sufix(find, &mut good_sufix_table[..]);
@@ -188,7 +188,7 @@ pub fn boyer_moore(pattern: &[u8], find: &[u8]) -> Option<usize> {
 /// ```
 pub fn horspool(pattern: &[u8], find: &[u8]) -> Option<usize> {
     let (size_patt, size_find) = (pattern.len(), find.len());
-    let mut bad_char_table = [0usize; 256];
+    let mut bad_char_table = [0_usize; 256];
 
     // Preprocessing
     preprocess_bad_char(find, &mut bad_char_table[..]);
@@ -284,7 +284,7 @@ fn preprocess_bad_char(find: &[u8], bad_char_table: &mut [usize]) {
 /// ```
 pub fn quick_matching(pattern: &[u8], find: &[u8]) -> Option<usize> {
     let (size_patt, size_find) = (pattern.len(), find.len());
-    let mut bad_char_table = [0usize; 256];
+    let mut bad_char_table = [0_usize; 256];
 
     // Preprocessing
     preprocess_quick_bad_char(&find, &mut bad_char_table);
