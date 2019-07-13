@@ -5,6 +5,7 @@
 [![Build Status](https://api.travis-ci.com/GrayJack/algos.svg?branch=master)](https://travis-ci.com/GrayJack/algos)
 [![dependency status](https://deps.rs/repo/github/GrayJack/algos/status.svg)](https://deps.rs/repo/github/GrayJack/algos)
 [![GitHub license](https://img.shields.io/github/license/GrayJack/algos.svg)](https://github.com/GrayJack/algos/blob/master/LICENSE)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FGrayJack%2Falgos.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FGrayJack%2Falgos?ref=badge_shield)
 
 A rust library with a collection of algorithms.
 
@@ -111,3 +112,7 @@ fn fn main() {
 - [X] Horspool
 - [X] Quick
 - [ ] Two-Way
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FGrayJack%2Falgos.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2FGrayJack%2Falgos?ref=badge_large)
