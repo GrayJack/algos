@@ -36,7 +36,7 @@
 /// let find2 = search::linear(&v, &19);
 /// assert_eq!(find2, Err(6));
 /// ```
-pub fn linear<T: Ord>(v: &[T], x: &T) -> Result<usize,usize> {
+pub fn linear<T: PartialOrd>(v: &[T], x: &T) -> Result<usize,usize> {
     for (i, e) in v.iter().enumerate() {
         if e == x {
             return Ok(i);
@@ -75,7 +75,7 @@ pub fn linear<T: Ord>(v: &[T], x: &T) -> Result<usize,usize> {
 /// let find2 = search::binary(&v, &19);
 /// assert_eq!(find2, Err(6));
 /// ```
-pub fn binary<T: Ord>(v: &[T], x: &T) -> Result<usize,usize> {
+pub fn binary<T: PartialOrd>(v: &[T], x: &T) -> Result<usize,usize> {
     let (mut l, mut r) = (0, v.len());
     // Looks like I'm unable to make v recursive implementation, so I made interative.
     while l <= r {
@@ -123,7 +123,7 @@ pub fn binary<T: Ord>(v: &[T], x: &T) -> Result<usize,usize> {
 /// let find2 = search::exponential(&v, &19);
 /// assert_eq!(find2, Err(6));
 /// ```
-pub fn exponential<T: Ord>(v: &[T], x: &T) -> Result<usize,usize> {
+pub fn exponential<T: PartialOrd>(v: &[T], x: &T) -> Result<usize,usize> {
     if v[0] == *x {
         return Ok(0);
     }
@@ -178,7 +178,7 @@ pub fn exponential<T: Ord>(v: &[T], x: &T) -> Result<usize,usize> {
 /// let find2 = search::fibonacci(&v, &19);
 /// assert_eq!(find2, Err(3));
 /// ```
-pub fn fibonacci<T: Ord>(v: &[T], x: &T) -> Result<usize,usize> {
+pub fn fibonacci<T: PartialOrd>(v: &[T], x: &T) -> Result<usize,usize> {
     let (mut fib1, mut fib2) = (0, 1);
     let mut fibn = fib1 + fib2;
 
