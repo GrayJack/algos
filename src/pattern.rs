@@ -1,19 +1,4 @@
-/**************************************************************************************************
-* Copyright 2018 GrayJack
-* All rights reserved.
-*
-* This Source Code Form is subject to the terms of the BSD 3-Clause License.
-**************************************************************************************************/
-// #![warn(
-//     clippy::all,
-//     clippy::restriction,
-//     clippy::pedantic,
-//     clippy::nursery,
-//     clippy::cargo,
-// )]
-
 //! A module for using pattern matching algorithms.
-//!
 
 /// **Brute Force:** Search for the pattern in the `find` parameter in a slice.
 ///
@@ -37,7 +22,7 @@
 /// ```
 pub fn bruteforce(pattern: &[u8], find: &[u8]) -> Option<usize> {
     let (size_patt, size_find) = (pattern.len(), find.len());
-    for i in 0..=size_patt-size_find {
+    for i in 0..=size_patt - size_find {
         if &pattern[i..(i + size_find)] == find {
             return Some(i);
         }
@@ -67,37 +52,34 @@ pub fn bruteforce(pattern: &[u8], find: &[u8]) -> Option<usize> {
 /// assert_eq!(find, Some(6));
 /// ```
 pub fn karp_rabin(pattern: &[u8], find: &[u8]) -> Option<usize> {
-    let (size_patt, size_find) = (pattern.len()-1, find.len());
+    let (size_patt, size_find) = (pattern.len() - 1, find.len());
 
     // Preprocessing
     // TODO: There is a way to do the preprocessing using dynamic programming, making the
     // preprocessing time linear, making the worst case O(n+m)
     // Using closure cause rust let us use it FUNCTIONAL PROGRAMMING HELL YEAH
-    let rehash = |a, b, hash, base| (((hash - a*base) << 1) + b);
+    let rehash = |a, b, hash, base| (((hash - a * base) << 1) + b);
 
     // 2^(m-1)
-    let base: u64 = 1 << (size_find-1);
+    let base: u64 = 1 << (size_find - 1);
 
     // Calculate the hashes
-    let (hash_find, mut hash_patt) = find.iter()
-        .take(size_find)
-        .zip(pattern.iter())
-        .fold((0_u64, 0_u64), |(hash_find, hash_patt), (&find, &patt)| {
-            (
-                (hash_find << 1) + u64::from(find),
-                (hash_patt << 1) + u64::from(patt),
-            )
+    let (hash_find, mut hash_patt) = find.iter().take(size_find).zip(pattern.iter()).fold(
+        (0_u64, 0_u64),
+        |(hash_find, hash_patt), (&find, &patt)| {
+            ((hash_find << 1) + u64::from(find), (hash_patt << 1) + u64::from(patt))
         },
     );
 
     // Searching
     let mut i = 0;
-    while i <= size_patt-size_find {
+    while i <= size_patt - size_find {
         if hash_patt == hash_find && &pattern[i..(i + size_find)] == find {
             return Some(i);
         }
 
-        hash_patt = rehash(u64::from(pattern[i]), u64::from(pattern[i+size_find]), hash_patt, base);
+        hash_patt =
+            rehash(u64::from(pattern[i]), u64::from(pattern[i + size_find]), hash_patt, base);
         i += 1;
     }
     // Check again after the loops end.
@@ -132,7 +114,7 @@ pub fn karp_rabin(pattern: &[u8], find: &[u8]) -> Option<usize> {
 /// assert_eq!(find, Some(6));
 /// ```
 pub fn boyer_moore(pattern: &[u8], find: &[u8]) -> Option<usize> {
-    let (size_patt, size_find) = (pattern.len()-1, find.len());
+    let (size_patt, size_find) = (pattern.len() - 1, find.len());
     let mut good_sufix_table = vec![0_usize; size_find];
     let mut bad_char_table = [0_usize; 256];
 
@@ -143,7 +125,7 @@ pub fn boyer_moore(pattern: &[u8], find: &[u8]) -> Option<usize> {
     // Searching
     let mut i = 0;
     while i <= size_patt - size_find {
-        let mut j = size_find-1;
+        let mut j = size_find - 1;
         while find[j] == pattern[j + i] && j > 0 {
             j -= 1;
         }
@@ -152,9 +134,9 @@ pub fn boyer_moore(pattern: &[u8], find: &[u8]) -> Option<usize> {
                 return Some(i);
             }
             i += good_sufix_table[0];
-        }
-        else {
-            i += good_sufix_table[j].max(bad_char_table[pattern[j + i] as usize - size_find + 1 + j]);
+        } else {
+            i += good_sufix_table[j]
+                .max(bad_char_table[pattern[j + i] as usize - size_find + 1 + j]);
         }
     }
 
@@ -212,17 +194,16 @@ fn preprocess_good_sufix(find: &[u8], good_sufix_table: &mut [usize]) {
 
     // Good sufix
     let mut suff = vec![0; size];
-    let mut good = size-1;
-    let mut f    = 0;
-    suff[size-1] = size;
+    let mut good = size - 1;
+    let mut f = 0;
+    suff[size - 1] = size;
     for i in (0..suff.len()).rev() {
-        if i > good && suff[i + size-1 + f] < i - good {
-            suff[i] = suff[i + size-1 + f];
-        }
-        else {
+        if i > good && suff[i + size - 1 + f] < i - good {
+            suff[i] = suff[i + size - 1 + f];
+        } else {
             good = if (good) < i { i } else { good };
             f = i;
-            while good == 0 && find[good] == find[good + size-1 - f] {
+            while good == 0 && find[good] == find[good + size - 1 - f] {
                 good -= 1;
             }
             suff[i] = good - f;
@@ -233,8 +214,8 @@ fn preprocess_good_sufix(find: &[u8], good_sufix_table: &mut [usize]) {
         *i = size;
     }
     for i in (0..size).rev() {
-        if suff[i] == i+1 {
-            for j in good_sufix_table.iter_mut().take(size-1) {
+        if suff[i] == i + 1 {
+            for j in good_sufix_table.iter_mut().take(size - 1) {
                 if *j == size {
                     *j = size - i - 1;
                 }
@@ -252,7 +233,7 @@ fn preprocess_bad_char(find: &[u8], bad_char_table: &mut [usize]) {
     for i in bad_char_table.iter_mut() {
         *i = size;
     }
-    for i in 0..size-1 {
+    for i in 0..size - 1 {
         bad_char_table[find[i] as usize] = size - i - 1;
     }
 }

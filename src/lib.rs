@@ -1,13 +1,6 @@
-/**************************************************************************************************
-* Copyright 2018 GrayJack
-* All rights reserved.
-*
-* This Source Code Form is subject to the terms of the BSD 3-Clause License.
-**************************************************************************************************/
-
-//! This crate is a collection of algorithms.
+//! This crate is a collection of algorithms, mostly intended as learning exercise.
 //! For now only sorting, searching and pattern matching algorithms were implemented.
 
-pub mod sort;
-pub mod search;
 pub mod pattern;
+pub mod search;
+pub mod sort;

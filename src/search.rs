@@ -1,19 +1,12 @@
-/**************************************************************************************************
-* Copyright 2018 GrayJack
-* All rights reserved.
-*
-* This Source Code Form is subject to the terms of the BSD 3-Clause License.
-**************************************************************************************************/
-
 //! A module for using searching algorithms.
 //!
 //! The array **must** be crescent ordered.
 
 /// **Linear Search:** Search for the value `x` in an array.
 ///
-/// If the value is found then `Ok` is returned, containing the index of the matching element;
-/// if the value is not found then `Err` is returned, containing the index where a matching
-/// element could be inserted while maintaining sorted order.
+/// If the value is found then `Ok` is returned, containing the index of the matching
+/// element; if the value is not found then `Err` is returned, containing the index where
+/// a matching element could be inserted while maintaining sorted order.
 ///
 /// Returns `Err` holding the last iterator if `x` not found and `v[i] > x`.
 ///
@@ -36,12 +29,11 @@
 /// let find2 = search::linear(&v, &19);
 /// assert_eq!(find2, Err(6));
 /// ```
-pub fn linear<T: PartialOrd>(v: &[T], x: &T) -> Result<usize,usize> {
+pub fn linear<T: PartialOrd>(v: &[T], x: &T) -> Result<usize, usize> {
     for (i, e) in v.iter().enumerate() {
         if e == x {
             return Ok(i);
-        }
-        else if e > x {
+        } else if e > x {
             return Err(i);
         }
     }
@@ -50,9 +42,9 @@ pub fn linear<T: PartialOrd>(v: &[T], x: &T) -> Result<usize,usize> {
 
 /// **Binary Search:** Search for the value `x` in an array.
 ///
-/// If the value is found then `Ok` is returned, containing the index of the matching element;
-/// if the value is not found then `Err` is returned, containing the index where a matching
-/// element could be inserted while maintaining sorted order.
+/// If the value is found then `Ok` is returned, containing the index of the matching
+/// element; if the value is not found then `Err` is returned, containing the index where
+/// a matching element could be inserted while maintaining sorted order.
 ///
 /// Returns `Err` holding the leftmost term if `x` not found.
 ///
@@ -75,20 +67,18 @@ pub fn linear<T: PartialOrd>(v: &[T], x: &T) -> Result<usize,usize> {
 /// let find2 = search::binary(&v, &19);
 /// assert_eq!(find2, Err(6));
 /// ```
-pub fn binary<T: PartialOrd>(v: &[T], x: &T) -> Result<usize,usize> {
+pub fn binary<T: PartialOrd>(v: &[T], x: &T) -> Result<usize, usize> {
     let (mut l, mut r) = (0, v.len());
     // Looks like I'm unable to make v recursive implementation, so I made interative.
     while l <= r {
         // This has the same result as (l+r)/2, but it's probably the same or faster.
-        let mid = (l+r) >> 1;
+        let mid = (l + r) >> 1;
 
         if v[mid] > *x {
             r = mid - 1;
-        }
-        else if v[mid] < *x {
+        } else if v[mid] < *x {
             l = mid + 1;
-        }
-        else {
+        } else {
             return Ok(mid);
         }
     }
@@ -97,9 +87,9 @@ pub fn binary<T: PartialOrd>(v: &[T], x: &T) -> Result<usize,usize> {
 
 /// **Exponential Search:** Search for the value `x` in an array.
 ///
-/// If the value is found then `Ok` is returned, containing the index of the matching element;
-/// if the value is not found then `Err` is returned, containing the index where a matching
-/// element could be inserted while maintaining sorted order.
+/// If the value is found then `Ok` is returned, containing the index of the matching
+/// element; if the value is not found then `Err` is returned, containing the index where
+/// a matching element could be inserted while maintaining sorted order.
 ///
 /// Returns `Err` holding the leftmost term if `x` not found.
 ///
@@ -123,7 +113,7 @@ pub fn binary<T: PartialOrd>(v: &[T], x: &T) -> Result<usize,usize> {
 /// let find2 = search::exponential(&v, &19);
 /// assert_eq!(find2, Err(6));
 /// ```
-pub fn exponential<T: PartialOrd>(v: &[T], x: &T) -> Result<usize,usize> {
+pub fn exponential<T: PartialOrd>(v: &[T], x: &T) -> Result<usize, usize> {
     if v[0] == *x {
         return Ok(0);
     }
@@ -133,18 +123,16 @@ pub fn exponential<T: PartialOrd>(v: &[T], x: &T) -> Result<usize,usize> {
         range *= 2;
     }
 
-    let (mut l, mut r) = (range/2, range.min(v.len()));
+    let (mut l, mut r) = (range / 2, range.min(v.len()));
     while l <= r {
         // This has the same result as (l+r)/2, but it's probably the same or faster.
-        let mid = (l+r) >> 1;
+        let mid = (l + r) >> 1;
 
         if v[mid] > *x {
             r = mid - 1;
-        }
-        else if v[mid] < *x {
+        } else if v[mid] < *x {
             l = mid + 1;
-        }
-        else {
+        } else {
             return Ok(mid);
         }
     }
@@ -153,9 +141,9 @@ pub fn exponential<T: PartialOrd>(v: &[T], x: &T) -> Result<usize,usize> {
 
 /// **Fibonacci Search:** Search for the value `x` in an array.
 ///
-/// If the value is found then `Ok` is returned, containing the index of the matching element;
-/// if the value is not found then `Err` is returned, containing the index where a matching
-/// element could be inserted while maintaining sorted order.
+/// If the value is found then `Ok` is returned, containing the index of the matching
+/// element; if the value is not found then `Err` is returned, containing the index where
+/// a matching element could be inserted while maintaining sorted order.
 ///
 ///
 /// **Obs.:** Variation of binary search.
@@ -178,7 +166,7 @@ pub fn exponential<T: PartialOrd>(v: &[T], x: &T) -> Result<usize,usize> {
 /// let find2 = search::fibonacci(&v, &19);
 /// assert_eq!(find2, Err(3));
 /// ```
-pub fn fibonacci<T: PartialOrd>(v: &[T], x: &T) -> Result<usize,usize> {
+pub fn fibonacci<T: PartialOrd>(v: &[T], x: &T) -> Result<usize, usize> {
     let (mut fib1, mut fib2) = (0, 1);
     let mut fibn = fib1 + fib2;
 
@@ -192,26 +180,24 @@ pub fn fibonacci<T: PartialOrd>(v: &[T], x: &T) -> Result<usize,usize> {
 
     let mut off = 0;
     while fibn > 1 {
-        let i = (off+fib1-1).min(v.len());
+        let i = (off + fib1 - 1).min(v.len());
 
         if v[i] < *x {
             fibn = fib2;
             fib2 = fib1;
             fib1 = fibn - fib2;
             off = i;
-        }
-        else if v[i] > *x {
+        } else if v[i] > *x {
             fibn = fib1;
             fib2 -= fib1;
             fib1 = fibn - fib2;
-        }
-        else {
-            return Ok(i)
+        } else {
+            return Ok(i);
         }
     }
 
-    if fib2 == 1 && v[off+1] == *x {
-        return Ok(off+1)
+    if fib2 == 1 && v[off + 1] == *x {
+        return Ok(off + 1);
     }
 
     Err(off)
@@ -278,5 +264,4 @@ pub mod test {
         assert_eq!(err1, Err(3));
         assert_eq!(err2, Err(3));
     }
-
 }
