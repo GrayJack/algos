@@ -6,7 +6,7 @@
 [![dependency status](https://deps.rs/repo/github/GrayJack/algos/status.svg)](https://deps.rs/repo/github/GrayJack/algos)
 [![GitHub license](https://img.shields.io/github/license/GrayJack/algos.svg)](https://github.com/GrayJack/algos/blob/master/LICENSE)
 
-A rust library with a collection of algorithms.
+A Rust library with a collection of algorithms. Mostly intended as learning exercises for Rust.
 
 Only sort, search and pattern matching algorithms for now.
 It is planned to add graph algorithms as well.
@@ -20,7 +20,7 @@ Add this to your `Cargo.toml`:
 algos = "0.3"
 ```
 
-and this to your crate root:
+and this to your crate root if on 2015 edition:
 
 ```rust
 extern crate algos;
