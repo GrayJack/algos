@@ -12,7 +12,7 @@ use rand::prelude::{thread_rng, Rng};
 /// |   Case    | Time complexity | Space complexity |
 /// |:----------|:---------------:|:----------------:|
 /// | Best:     | Ω(n²)           |                  |
-/// | Avrg:     | θ(n²)           |                  |
+/// | Avrg:     | Θ(n²)           |                  |
 /// | Worst:    | O(n²)           | O(1)             |
 ///
 /// # Example
@@ -44,7 +44,7 @@ pub fn selection<T: PartialOrd, C: Fn(&T, &T) -> bool>(v: &mut [T], cmp: &C) {
 /// |   Case    | Time complexity | Space complexity |
 /// |:----------|:---------------:|:----------------:|
 /// | Best:     | Ω(n)            |                  |
-/// | Avrg:     | θ(n²)           |                  |
+/// | Avrg:     | Θ(n²)           |                  |
 /// | Worst:    | O(n²)           | O(1)             |
 ///
 /// # Example
@@ -73,7 +73,7 @@ pub fn bubble<T: PartialOrd, C: Fn(&T, &T) -> bool>(v: &mut [T], cmp: &C) {
 /// |   Case    | Time complexity | Space complexity |
 /// |:----------|:---------------:|:----------------:|
 /// | Best:     | Ω(n)            |                  |
-/// | Avrg:     | θ(n²)           |                  |
+/// | Avrg:     | Θ(n²)           |                  |
 /// | Worst:    | O(n²)           | O(1)             |
 ///
 /// # Example
@@ -121,7 +121,7 @@ pub fn cocktail<T: PartialOrd, C: Fn(&T, &T) -> bool>(v: &mut [T], cmp: &C) {
 /// |   Case    | Time complexity | Space complexity |
 /// |:----------|:---------------:|:----------------:|
 /// | Best:     | Ω(n)            |                  |
-/// | Avrg:     | θ(n²)           |                  |
+/// | Avrg:     | Θ(n²)           |                  |
 /// | Worst:    | O(n²)           | O(1)             |
 ///
 /// # Example
@@ -149,7 +149,7 @@ pub fn insection<T: PartialOrd, C: Fn(&T, &T) -> bool>(v: &mut [T], cmp: &C) {
 /// |   Case    | Time complexity | Space complexity |
 /// |:----------|:---------------:|:----------------:|
 /// | Best:     | Ω(nlog(n))      |                  |
-/// | Avrg:     | θ(nlog(n))      |                  |
+/// | Avrg:     | Θ(nlog(n))      |                  |
 /// | Worst:    | O(nlog(n))      | O(n)             |
 ///
 /// # Example
@@ -210,7 +210,7 @@ fn combine<T: Copy + PartialOrd, C: Fn(&T, &T) -> bool>(
 /// |   Case    | Time complexity | Space complexity |
 /// |:----------|:---------------:|:----------------:|
 /// | Best:     | Ω(nlog(n))      |                  |
-/// | Avrg:     | θ(nlog(n))      |                  |
+/// | Avrg:     | Θ(nlog(n))      |                  |
 /// | Worst:    | O(n²)           | O(log(n))        |
 ///
 /// # Example
@@ -258,7 +258,7 @@ fn partition<T: Copy + PartialOrd, C: Fn(&T, &T) -> bool>(v: &mut [T], cmp: &C) 
 /// |   Case    | Time complexity | Space complexity |
 /// |:----------|:---------------:|:----------------:|
 /// | Best:     | Ω(nlog(n))      |                  |
-/// | Avrg:     | θ(nlog(n))      |                  |
+/// | Avrg:     | Θ(nlog(n))      |                  |
 /// | Worst:    | O(nlog(n))      | O(1)             |
 ///
 /// # Example

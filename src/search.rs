@@ -14,7 +14,7 @@
 /// |   Case    | Time complexity | Space complexity |
 /// |:----------|:---------------:|:----------------:|
 /// | Best:     | Ω(1)            |                  |
-/// | Avrg:     | θ(n)            |                  |
+/// | Avrg:     | Θ(n)            |                  |
 /// | Worst:    | O(n)            | O(1)             |
 ///
 /// # Example
@@ -52,7 +52,7 @@ pub fn linear<T: PartialOrd>(v: &[T], x: &T) -> Result<usize, usize> {
 /// |   Case    | Time complexity | Space complexity |
 /// |:----------|:---------------:|:----------------:|
 /// | Best:     | Ω(1)            |                  |
-/// | Avrg:     | θ(log(n))       |                  |
+/// | Avrg:     | Θ(log(n))       |                  |
 /// | Worst:    | O(log(n))       | O(1)             |
 ///
 /// # Example
@@ -98,7 +98,7 @@ pub fn binary<T: PartialOrd>(v: &[T], x: &T) -> Result<usize, usize> {
 /// |   Case    | Time complexity | Space complexity |
 /// |:----------|:---------------:|:----------------:|
 /// | Best:     | Ω(1)            |                  |
-/// | Avrg:     | θ(log(n))       |                  |
+/// | Avrg:     | Θ(log(n))       |                  |
 /// | Worst:    | O(log(n))       | O(1)             |
 ///
 /// # Example
@@ -151,7 +151,7 @@ pub fn exponential<T: PartialOrd>(v: &[T], x: &T) -> Result<usize, usize> {
 /// |   Case    | Time complexity | Space complexity |
 /// |:----------|:---------------:|:----------------:|
 /// | Best:     | Ω(1)            |                  |
-/// | Avrg:     | θ(log(n))       |                  |
+/// | Avrg:     | Θ(log(n))       |                  |
 /// | Worst:    | O(log(n))       | O(1)             |
 ///
 /// # Example

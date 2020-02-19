@@ -8,7 +8,7 @@
 /// |   Case    | Time complexity | Space complexity |
 /// |:----------|:---------------:|:----------------:|
 /// | Best:     | Ω(m*(n-m+1))    |                  |
-/// | Avrg:     | θ(m*(n-m+1))    |                  |
+/// | Avrg:     | Θ(m*(n-m+1))    |                  |
 /// | Worst:    | O(m*(n-m+1))    | O(1)             |
 ///
 /// # Example
@@ -39,7 +39,7 @@ pub fn bruteforce(pattern: &[u8], find: &[u8]) -> Option<usize> {
 /// |   Case    | Time complexity | Space complexity |
 /// |:----------|:---------------:|:----------------:|
 /// | Best:     | Ω(n+m)          |                  |
-/// | Avrg:     | θ(n+m)          |                  |
+/// | Avrg:     | Θ(n+m)          |                  |
 /// | Worst:    | O(m*(n+m))      | O(1)             |
 ///
 /// # Example
@@ -98,7 +98,7 @@ pub fn karp_rabin(pattern: &[u8], find: &[u8]) -> Option<usize> {
 /// |   Case    | Time complexity | Space complexity |
 /// |:----------|:---------------:|:----------------:|
 /// | Best:     | Ω(n/m)          |                  |
-/// | Avrg:     | θ(n+m)          |                  |
+/// | Avrg:     | Θ(n+m)          |                  |
 /// | Worst:    | O(nm)           | O(m+δ)           |
 ///
 ///
@@ -153,7 +153,7 @@ pub fn boyer_moore(pattern: &[u8], find: &[u8]) -> Option<usize> {
 /// |   Case    | Time complexity | Space complexity |
 /// |:----------|:---------------:|:----------------:|
 /// | Best:     | Ω(n/m)          |                  |
-/// | Avrg:     | θ(n+m)          |                  |
+/// | Avrg:     | Θ(n+m)          |                  |
 /// | Worst:    | O(nm)           | O(δ)             |
 ///
 ///
@@ -248,7 +248,7 @@ fn preprocess_bad_char(find: &[u8], bad_char_table: &mut [usize]) {
 /// |   Case    | Time complexity | Space complexity |
 /// |:----------|:---------------:|:----------------:|
 /// | Best:     | Ω(n/m)          |                  |
-/// | Avrg:     | θ(n+m)          |                  |
+/// | Avrg:     | Θ(n+m)          |                  |
 /// | Worst:    | O(nm)           | O(δ)             |
 ///
 ///
