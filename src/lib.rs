@@ -4,3 +4,4 @@
 pub mod pattern;
 pub mod search;
 pub mod sort;
+pub mod numerics;
