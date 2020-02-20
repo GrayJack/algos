@@ -15,7 +15,7 @@ use num::{BigUint, One, Zero};
 /// Print the 100 first fibonacci numbers.
 ///
 /// ```rust
-/// # use algos::numerics::fibonacci::BigFib;
+/// # use algos::numerics::fibonacci::Fib;
 /// # fn main() {
 /// Fib::new().enumerate().take(100).for_each(|(i, v)| println!("Fib {}: {}", i, v));
 /// }
