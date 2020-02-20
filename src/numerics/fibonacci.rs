@@ -10,7 +10,16 @@ use num::{BigUint, One, Zero};
 /// fibonacci numbers. If you need to go past that, use [`BigFib`] iterator.
 ///
 /// [`BigFib`]: ./struct.BigFib.html
-// TODO: Add examples
+///
+/// # Example
+/// Print the 100 first fibonacci numbers.
+///
+/// ```rust
+/// # use algos::numerics::fibonacci::BigFib;
+/// # fn main() {
+/// Fib::new().enumerate().take(100).for_each(|(i, v)| println!("Fib {}: {}", i, v));
+/// }
+/// ```
 #[derive(Debug, Clone, Default)]
 pub struct Fib {
     val: (u128, u128),
@@ -36,7 +45,16 @@ impl Iterator for Fib {
 }
 
 /// A Iterator for the fibonacci sequence using big numbers.
-// TODO: Add examples
+///
+/// # Example
+/// Print the 100 first fibonacci numbers.
+///
+/// ```rust
+/// # use algos::numerics::fibonacci::BigFib;
+/// # fn main() {
+/// BigFib::new().enumerate().take(100).for_each(|(i, v)| println!("Fib {}: {}", i, v));
+/// }
+/// ```
 #[derive(Debug, Clone, Default)]
 pub struct BigFib {
     val: (BigUint, BigUint),
