@@ -7,7 +7,7 @@
 
 use num::{BigUint, One};
 
-/// Factorial iterator using big numbers;
+/// Factorial iterator using big numbers.
 #[derive(Debug, Clone)]
 pub struct BigFactorial {
     /// Index we are in.
@@ -21,7 +21,7 @@ pub struct BigFactorial {
 }
 
 impl BigFactorial {
-    /// Creates a new iterator starting at the first number of the sequence;
+    /// Creates a new iterator starting at the first number of the sequence.
     pub fn new() -> Self { BigFactorial { last: BigUint::one(), index: 0 } }
 
     /// Create a new iterator with the first factorial number beeing the `nth` factorial

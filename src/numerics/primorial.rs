@@ -1,6 +1,7 @@
 //! Primorial
 use num::{BigUint, One, Zero};
 
+/// Primorial iterator using big numbers.
 #[derive(Debug, Clone)]
 pub struct BigPrimorial {
     /// Index we are in.
@@ -13,7 +14,7 @@ pub struct BigPrimorial {
 }
 
 impl BigPrimorial {
-    /// Creates a new iterator starting at the first number of the sequence;
+    /// Creates a new iterator starting at the first number of the sequence.
     pub fn new() -> Self { BigPrimorial { index: 0, last: BigUint::one() } }
 
     /// Create a new iterator with the first factorial number beeing the `nth` factorial

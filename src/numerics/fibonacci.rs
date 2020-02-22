@@ -79,7 +79,7 @@ impl Iterator for BigFib {
     }
 }
 
-/// Calculate the nth fibonacci number using the classic recursive strategy.
+/// Calculate the `nth` fibonacci number using the classic recursive strategy.
 ///
 /// |   Case    | Time complexity | Space complexity |
 /// |:----------|:---------------:|:----------------:|
@@ -98,7 +98,7 @@ pub fn recursive_fibonacci(nth: u128) -> u128 {
     }
 }
 
-/// Calculate the nth fibonacci number using the dynamic programming strategy.
+/// Calculate the `nth` fibonacci number using the dynamic programming strategy.
 ///
 /// |   Case    | Time complexity | Space complexity |
 /// |:----------|:---------------:|:----------------:|
@@ -121,7 +121,7 @@ pub fn dynamic_fibonacci(nth: u128) -> u128 {
     a
 }
 
-/// Calculate the nth fibonacci number using the fast doubling algorithm.
+/// Calculate the `nth` fibonacci number using the fast doubling algorithm.
 ///
 /// |   Case    | Time complexity | Space complexity |
 /// |:----------|:---------------:|:----------------:|
@@ -148,7 +148,7 @@ fn _fib(nth: u128) -> (u128, u128) {
     }
 }
 
-/// Calculate the nth fibonacci number using the fast doubling algorithm.
+/// Calculate the `nth` fibonacci number using the fast doubling algorithm.
 ///
 /// |   Case    | Time complexity | Space complexity |
 /// |:----------|:---------------:|:----------------:|
