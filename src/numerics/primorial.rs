@@ -46,6 +46,16 @@ impl Iterator for BigPrimorial {
 pub fn primorial_big(index: impl Into<BigUint>) -> BigUint {
     let index = index.into();
 
+    num::range_inclusive(BigUint::one(), index).filter(|x| is_prime_big(x.clone())).product()
+}
+
+/// Return the nth primorial number using big numbers.
+///
+/// # Panics
+/// This function may panic if there the computer run out of memory.
+pub fn recursive_primorial_big(index: impl Into<BigUint>) -> BigUint {
+    let index = index.into();
+
     if &index == &BigUint::zero() || &index == &BigUint::one() {
         return BigUint::one();
     }
@@ -69,12 +79,23 @@ pub fn is_prime_big(num: impl Into<BigUint>) -> bool {
     num::range_inclusive(BigUint::from(2u8), num.sqrt()).all(|x| &num % x != BigUint::zero())
 }
 
+
 /// Return the nth primorial number using the biggest integer primitive.
 ///
 /// # Panics
 /// This function may panic in debug mode if there is a operation with overflow. It will
 /// happen when `index` ≥ 103.
-pub fn primorial(index: u128) -> u128 {
+pub fn primorial(index: u128) -> u128 { (1..=index).filter(|x| is_prime(*x)).product() }
+
+/// Return the nth primorial number using the biggest integer primitive.
+///
+/// # Panics
+/// This function may panic in debug mode if there is a operation with overflow. It will
+/// happen when `index` ≥ 103.
+/// This also may panic it it reachest stack overflow due it's recursive nature and Rust
+/// lack of tail call optimization. _Note that there is a change that LLVM generate a code
+/// that this doesn't happen when in release mode_
+pub fn recursive_primorial(index: u128) -> u128 {
     match index {
         0 | 1 => 1,
         _ if is_prime(index) => index * primorial(index - 1),
@@ -149,6 +170,18 @@ mod tests {
     }
 
     #[test]
+    fn recursive_primorial_big_test() {
+        let sure: Vec<_> = vec![1u16, 1, 2, 6, 6, 30, 30, 210, 210, 210, 210, 2310]
+            .iter()
+            .map(|x| BigUint::from(*x))
+            .collect();
+
+        let tests: Vec<_> = (0..sure.len() as u128).map(recursive_primorial_big).collect();
+
+        assert_eq!(sure, tests)
+    }
+
+    #[test]
     fn is_prime_big_test() {
         let sure: Vec<_> = vec![
             2u8, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79,
@@ -177,6 +210,14 @@ mod tests {
     fn primorial_test() {
         let sure = vec![1, 1, 2, 6, 6, 30, 30, 210, 210, 210, 210, 2310];
         let tests: Vec<_> = (0..sure.len() as u128).map(primorial).collect();
+
+        assert_eq!(sure, tests)
+    }
+
+    #[test]
+    fn recursive_primorial_test() {
+        let sure = vec![1, 1, 2, 6, 6, 30, 30, 210, 210, 210, 210, 2310];
+        let tests: Vec<_> = (0..sure.len() as u128).map(recursive_primorial).collect();
 
         assert_eq!(sure, tests)
     }
