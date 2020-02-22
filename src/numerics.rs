@@ -2,6 +2,7 @@
 
 pub mod factorial;
 pub mod fibonacci;
+pub mod primorial;
 
 pub use factorial::BigFactorial;
 pub use fibonacci::{BigFib, Fib};
