@@ -2,6 +2,8 @@
 //!
 //! Since calculate fatorial is simple enought, we will only implement a iterator that
 //! keeps giving a ever increasing factorial
+//!
+//! Only implement for big numbers cause the number grows big super fast
 
 use num::{BigUint, One};
 
@@ -15,15 +17,18 @@ pub struct BigFactorial {
     ///
     /// We can do it without this value, but using it, we increase memory consuption, but
     /// the iterator became faster.
-    value: BigUint,
+    last: BigUint,
 }
 
 impl BigFactorial {
-    /// Creates a new iterator starting at 0;
-    pub fn new() -> Self { BigFactorial { value: BigUint::one(), index: 0 } }
+    /// Creates a new iterator starting at the first number of the sequence;
+    pub fn new() -> Self { BigFactorial { last: BigUint::one(), index: 0 } }
 
-    pub fn at(index: u128) -> Self {
-        BigFactorial { index, value: (1..index).map(BigUint::from).product() }
+    /// Create a new iterator with the first factorial number beeing the `nth` factorial
+    /// number.
+    pub fn at(nth: impl Into<u128>) -> Self {
+        let index = nth.into();
+        BigFactorial { index, last: (1..index).map(BigUint::from).product() }
     }
 }
 
@@ -35,9 +40,9 @@ impl Iterator for BigFactorial {
             self.index += 1;
             Some(BigUint::one())
         } else {
-            self.value *= self.index;
+            self.last *= self.index;
             self.index += 1;
-            Some(self.value.clone())
+            Some(self.last.clone())
         }
     }
 }
@@ -64,7 +69,7 @@ mod tests {
             .map(|x| BigUint::from(*x as u64))
             .collect();
 
-        let test: Vec<_> = BigFactorial::at(5).take(sure.len()).collect();
+        let test: Vec<_> = BigFactorial::at(5u32).take(sure.len()).collect();
         assert_eq!(sure, test);
     }
 }
