@@ -1,15 +1,15 @@
 [package]
 name = "algos"
-version = "0.3.3"
+version = "0.4.0"
 authors = ["GrayJack <gr41.j4ck@gmail.com>"]
-readme = "README.md"
-license = "BSD-3-Clause"
-license-file = "LICENSE"
+description = "A collection of algorithms in Rust"
 repository = "https://github.com/GrayJack/algos"
-documentation = "https://docs.rs/algos"
 homepage = "https://crates.io/crates/algos"
-description = "A collection of algorithms in rust"
-exclude = ["/.travis.yml"]
+documentation = "https://docs.rs/algos"
+license-file = "LICENSE"
+readme = "README.md"
+keywords = ["algorithm", "algorithms", "sort", "search", "pattern find", "series", "sequence"]
+exclude = ["/.travis.yml", "/.github/*"]
 edition = "2018"
 
 
