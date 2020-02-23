@@ -1,6 +1,7 @@
 //! Fibonacci sequence algorithms.
 use std::fmt::Debug;
 
+#[cfg(feature = "big_num")]
 use num::{BigUint, One, Zero};
 
 /// A Iterator for the fibonacci sequence.
@@ -55,11 +56,13 @@ impl Iterator for Fib {
 /// BigFib::new().enumerate().take(100).for_each(|(i, v)| println!("Fib {}: {}", i, v));
 /// # }
 /// ```
+#[cfg(feature = "big_num")]
 #[derive(Debug, Clone, Default)]
 pub struct BigFib {
     val: (BigUint, BigUint),
 }
 
+#[cfg(feature = "big_num")]
 impl BigFib {
     /// Create a new iterator starting at the first fibonacci number, zero.
     pub fn new() -> Self { Self { val: (BigUint::zero(), BigUint::one()) } }
@@ -69,6 +72,7 @@ impl BigFib {
     pub fn at(nth: impl Into<BigUint>) -> Self { Self { val: _big_fib(&nth.into()) } }
 }
 
+#[cfg(feature = "big_num")]
 impl Iterator for BigFib {
     type Item = BigUint;
 
@@ -158,10 +162,12 @@ fn _fib(nth: u128) -> (u128, u128) {
 ///
 /// # Panics
 /// This function may panic if `BigUint` type run out of allocation memory.
+#[cfg(feature = "big_num")]
 pub fn big_fast_doubling_fibonacci(nth: impl Into<BigUint>) -> BigUint { _big_fib(&nth.into()).0 }
 
 /// Calculate the fibonacci number at index `nth` using the fast doubling strategy
 /// (inner).
+#[cfg(feature = "big_num")]
 fn _big_fib(nth: &BigUint) -> (BigUint, BigUint) {
     if *nth == BigUint::zero() {
         (BigUint::zero(), BigUint::one())

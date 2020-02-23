@@ -15,4 +15,8 @@ edition = "2018"
 
 [dependencies]
 rand = "^0.7.3"
-num = "0.2.1"
+num = { version="~0.2.1", optional=true }
+
+[features]
+default = ["big_num"]
+big_num = ["num"]

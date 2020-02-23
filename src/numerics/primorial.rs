@@ -1,4 +1,5 @@
 //! Primorial
+#[cfg(feature = "big_num")]
 use num::{BigUint, One, Zero};
 
 /// Primorial iterator using big numbers.
@@ -12,6 +13,7 @@ use num::{BigUint, One, Zero};
 /// BigPrimorial::new().enumerate().take(100).for_each(|(i, v)| println!("{}#: {}", i, v));
 /// # }
 /// ```
+#[cfg(feature = "big_num")]
 #[derive(Debug, Clone)]
 pub struct BigPrimorial {
     /// Index we are in.
@@ -23,6 +25,7 @@ pub struct BigPrimorial {
     last:  BigUint,
 }
 
+#[cfg(feature = "big_num")]
 impl BigPrimorial {
     /// Creates a new iterator starting at the first number of the sequence.
     pub fn new() -> Self { BigPrimorial { index: 0, last: BigUint::one() } }
@@ -35,6 +38,7 @@ impl BigPrimorial {
     }
 }
 
+#[cfg(feature = "big_num")]
 impl Iterator for BigPrimorial {
     type Item = BigUint;
 
@@ -54,6 +58,7 @@ impl Iterator for BigPrimorial {
 ///
 /// # Panics
 /// This function may panic if there the computer run out of memory.
+#[cfg(feature = "big_num")]
 pub fn primorial_big(index: impl Into<BigUint>) -> BigUint {
     let index = index.into();
 
@@ -64,6 +69,7 @@ pub fn primorial_big(index: impl Into<BigUint>) -> BigUint {
 ///
 /// # Panics
 /// This function may panic if there the computer run out of memory.
+#[cfg(feature = "big_num")]
 pub fn recursive_primorial_big(index: impl Into<BigUint>) -> BigUint {
     let index = index.into();
 
@@ -80,6 +86,7 @@ pub fn recursive_primorial_big(index: impl Into<BigUint>) -> BigUint {
 
 
 /// Check if given `num`ber is a prime number.
+#[cfg(feature = "big_num")]
 pub fn is_prime_big(num: impl Into<BigUint>) -> bool {
     let num = num.into();
 
