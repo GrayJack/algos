@@ -2,6 +2,16 @@
 use num::{BigUint, One, Zero};
 
 /// Primorial iterator using big numbers.
+///
+/// # Example
+/// Print the 100 first primorial numbers.
+///
+/// ```rust
+/// # use algos::numerics::BigPrimorial;
+/// # fn main() {
+/// BigPrimorial::new().enumerate().take(100).for_each(|(i, v)| println!("{}#: {}", i, v));
+/// # }
+/// ```
 #[derive(Debug, Clone)]
 pub struct BigPrimorial {
     /// Index we are in.

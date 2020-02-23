@@ -15,10 +15,10 @@ use num::{BigUint, One, Zero};
 /// Print the 100 first fibonacci numbers.
 ///
 /// ```rust
-/// # use algos::numerics::fibonacci::Fib;
+/// # use algos::numerics::Fib;
 /// # fn main() {
 /// Fib::new().enumerate().take(100).for_each(|(i, v)| println!("Fib {}: {}", i, v));
-/// }
+/// # }
 /// ```
 #[derive(Debug, Clone, Default)]
 pub struct Fib {
@@ -50,10 +50,10 @@ impl Iterator for Fib {
 /// Print the 100 first fibonacci numbers.
 ///
 /// ```rust
-/// # use algos::numerics::fibonacci::BigFib;
+/// # use algos::numerics::BigFib;
 /// # fn main() {
 /// BigFib::new().enumerate().take(100).for_each(|(i, v)| println!("Fib {}: {}", i, v));
-/// }
+/// # }
 /// ```
 #[derive(Debug, Clone, Default)]
 pub struct BigFib {

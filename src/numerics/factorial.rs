@@ -1,13 +1,23 @@
 //! Factorial module.
 //!
-//! Since calculate fatorial is simple enought, we will only implement a iterator that
-//! keeps giving a ever increasing factorial
+//! Since calculate fatorial is simple enought, we will only implement the iterator that
+//! keeps giving a ever increasing number.
 //!
-//! Only implement for big numbers cause the number grows big super fast
+//! _Only implement for big numbers cause the number grows big super fast._
 
 use num::{BigUint, One};
 
 /// Factorial iterator using big numbers.
+///
+/// # Example
+/// Print the 100 first factorial numbers.
+///
+/// ```rust
+/// # use algos::numerics::BigFactorial;
+/// # fn main() {
+/// BigFactorial::new().enumerate().take(100).for_each(|(i, v)| println!("{}!: {}", i, v));
+/// # }
+/// ```
 #[derive(Debug, Clone)]
 pub struct BigFactorial {
     /// Index we are in.
