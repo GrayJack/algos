@@ -176,7 +176,7 @@ fn _big_fib(nth: &BigUint) -> (BigUint, BigUint) {
         let c = &a * (&b * 2u8 - &a);
         let d = &a * &a + &b * &b;
 
-        if nth % 2u8 == BigUint::zero() { (c, d) } else { (d.clone(), c + d) }
+        if (nth % 2u8).is_zero() { (c, d) } else { (d.clone(), c + d) }
     }
 }
 

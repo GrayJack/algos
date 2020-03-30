@@ -73,7 +73,7 @@ pub fn primorial_big(index: impl Into<BigUint>) -> BigUint {
 pub fn recursive_primorial_big(index: impl Into<BigUint>) -> BigUint {
     let index = index.into();
 
-    if &index == &BigUint::zero() || &index == &BigUint::one() {
+    if index.is_zero() || index.is_one() {
         return BigUint::one();
     }
 
@@ -90,7 +90,7 @@ pub fn recursive_primorial_big(index: impl Into<BigUint>) -> BigUint {
 pub fn is_prime_big(num: impl Into<BigUint>) -> bool {
     let num = num.into();
 
-    if &num == &BigUint::zero() || &num == &BigUint::one() {
+    if num.is_zero() || num.is_one() {
         return false;
     }
 
