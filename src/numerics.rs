@@ -4,6 +4,7 @@
 pub mod factorial;
 pub mod fibonacci;
 pub mod primorial;
+pub mod prime;
 
 #[cfg(feature = "big_num")]
 pub use factorial::BigFactorial;
@@ -13,3 +14,4 @@ pub use fibonacci::BigFib;
 pub use primorial::BigPrimorial;
 
 pub use fibonacci::Fib;
+pub use prime::IsPrime;
