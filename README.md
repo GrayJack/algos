@@ -2,7 +2,7 @@
 
 [![Crates.io](https://img.shields.io/crates/v/algos.svg)](https://crates.io/crates/algos)
 [![Documentation](https://docs.rs/algos/badge.svg)](https://docs.rs/algos)
-[![Build Status](https://api.travis-ci.com/GrayJack/algos.svg?branch=master)](https://travis-ci.com/GrayJack/algos)
+[![Build Status](https://github.com/GrayJack/algos/workflows/Build/badge.svg)](https://github.com/GrayJack/algos/actions)
 [![dependency status](https://deps.rs/repo/github/GrayJack/algos/status.svg)](https://deps.rs/repo/github/GrayJack/algos)
 [![GitHub license](https://img.shields.io/github/license/GrayJack/algos.svg)](https://github.com/GrayJack/algos/blob/master/LICENSE)
 
