@@ -65,7 +65,7 @@ mod tests {
     fn iterator_bignum_test() {
         let sure: Vec<_> = vec![1, 1, 2, 6, 24, 120, 720, 5040, 40320, 362_880, 3_628_800]
             .iter()
-            .map(|x| BigUint::from(*x as u64))
+            .map(|&x| BigUint::from(x as u64))
             .collect();
 
         let test: Vec<_> = BigFactorial::new().take(sure.len()).collect();
@@ -76,7 +76,7 @@ mod tests {
     fn iterator_bignum_at_test() {
         let sure: Vec<_> = vec![120, 720, 5040, 40320, 362_880, 3_628_800]
             .iter()
-            .map(|x| BigUint::from(*x as u64))
+            .map(|&x| BigUint::from(x as u64))
             .collect();
 
         let test: Vec<_> = BigFactorial::at(5u32).take(sure.len()).collect();

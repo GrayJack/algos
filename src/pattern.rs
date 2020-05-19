@@ -57,7 +57,6 @@ pub fn karp_rabin(pattern: &[u8], find: &[u8]) -> Option<usize> {
     // Preprocessing
     // TODO: There is a way to do the preprocessing using dynamic programming, making the
     // preprocessing time linear, making the worst case O(n+m)
-    // Using closure cause rust let us use it FUNCTIONAL PROGRAMMING HELL YEAH
     let rehash = |a, b, hash, base| (((hash - a * base) << 1) + b);
 
     // 2^(m-1)

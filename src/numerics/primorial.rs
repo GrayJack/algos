@@ -103,7 +103,7 @@ pub fn is_prime_big(num: impl Into<BigUint>) -> bool {
 /// # Panics
 /// This function may panic in debug mode if there is a operation with overflow. It will
 /// happen when `index` ≥ 103.
-pub fn primorial(index: u128) -> u128 { (1..=index).filter(|x| is_prime(*x)).product() }
+pub fn primorial(index: u128) -> u128 { (1..=index).filter(|&x| is_prime(x)).product() }
 
 /// Return the nth primorial number using the biggest integer primitive.
 ///
@@ -167,7 +167,7 @@ mod tests {
     fn iterator_test() {
         let sure: Vec<_> = vec![1u16, 1, 2, 6, 6, 30, 30, 210, 210, 210, 210, 2310]
             .iter()
-            .map(|x| BigUint::from(*x))
+            .map(|&x| BigUint::from(x))
             .collect();
 
         let test: Vec<_> = BigPrimorial::new().take(sure.len()).collect();
@@ -179,7 +179,7 @@ mod tests {
     fn primorial_big_test() {
         let sure: Vec<_> = vec![1u16, 1, 2, 6, 6, 30, 30, 210, 210, 210, 210, 2310]
             .iter()
-            .map(|x| BigUint::from(*x))
+            .map(|&x| BigUint::from(x))
             .collect();
 
         let tests: Vec<_> = (0..sure.len() as u128).map(primorial_big).collect();
@@ -191,7 +191,7 @@ mod tests {
     fn recursive_primorial_big_test() {
         let sure: Vec<_> = vec![1u16, 1, 2, 6, 6, 30, 30, 210, 210, 210, 210, 2310]
             .iter()
-            .map(|x| BigUint::from(*x))
+            .map(|&x| BigUint::from(x))
             .collect();
 
         let tests: Vec<_> = (0..sure.len() as u128).map(recursive_primorial_big).collect();
@@ -207,7 +207,7 @@ mod tests {
             179, 181, 191, 193, 197, 199,
         ]
         .iter()
-        .map(|x| BigUint::from(*x))
+        .map(|&x| BigUint::from(x))
         .collect();
 
         for x in sure {
@@ -216,7 +216,7 @@ mod tests {
 
         let not_primes: Vec<_> = vec![4u8, 6, 8, 9, 10, 12, 14, 15, 16, 18, 20]
             .iter()
-            .map(|x| BigUint::from(*x))
+            .map(|&x| BigUint::from(x))
             .collect();
 
         for x in not_primes {

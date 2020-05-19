@@ -211,7 +211,7 @@ mod tests {
         let sure: Vec<_> =
             vec![0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987, 1597]
                 .iter()
-                .map(|x| BigUint::from(*x as u32))
+                .map(|&x| BigUint::from(x as u32))
                 .collect();
 
         let test: Vec<_> = (0..sure.len() as u128).map(big_fast_doubling_fibonacci).collect();
@@ -230,7 +230,7 @@ mod tests {
         let sure: Vec<_> =
             vec![0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987, 1597]
                 .iter()
-                .map(|x| BigUint::from(*x as u32))
+                .map(|&x| BigUint::from(x as u32))
                 .collect();
 
         let test: Vec<_> = BigFib::new().take(sure.len()).collect();
