@@ -1,4 +1,4 @@
-use num::{Zero, One, integer::Roots};
+use num::{integer::Roots, One, Zero};
 
 #[cfg(feature = "big_num")]
 use num::{BigInt, BigUint};
@@ -10,7 +10,8 @@ pub trait IsPrime {
 }
 
 /// Simple implementation for the sqrt for integers (for educational porpuses)
-/// All other parts of the code uses the `num` crate implementation, that have better performance.
+/// All other parts of the code uses the `num` crate implementation, that have better
+/// performance.
 pub fn isqrt(num: u128) -> u128 {
     let mut shift = 2;
     let mut nshifted = num >> shift;

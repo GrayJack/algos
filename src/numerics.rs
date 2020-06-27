@@ -3,8 +3,8 @@
 #[cfg(feature = "big_num")]
 pub mod factorial;
 pub mod fibonacci;
-pub mod primorial;
 pub mod prime;
+pub mod primorial;
 
 #[cfg(feature = "big_num")]
 pub use factorial::BigFactorial;
