@@ -1,4 +1,7 @@
-use num::{BigInt, BigUint, Zero, One, integer::Roots};
+use num::{Zero, One, integer::Roots};
+
+#[cfg(feature = "big_num")]
+use num::{BigInt, BigUint};
 
 /// Trait to be implemented by types that makes sense having prime numbers
 pub trait IsPrime {
