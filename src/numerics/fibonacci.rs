@@ -1,8 +1,11 @@
 //! Fibonacci sequence algorithms.
-use std::fmt::Debug;
+use std::{convert::TryFrom, fmt::Debug};
 
 #[cfg(feature = "big_num")]
-use num::{BigUint, One, Zero};
+use num::{pow::Pow, rational::BigRational, BigUint, One, Zero};
+
+const GOLDEN_RATIO: f64 = 1.618033988749894848204586834365638117720309179805762862135;
+
 
 /// A Iterator for the fibonacci sequence.
 ///
@@ -152,6 +155,23 @@ fn _fib(nth: u128) -> (u128, u128) {
     }
 }
 
+/// Calculate the `nth` fibonacci number using the binet formulae.
+///
+/// This is a aproximation method and will stop working for `nth >= 76`
+///
+/// |   Case    | Time complexity | Space complexity |
+/// |:----------|:---------------:|:----------------:|
+/// | Best:     | Ω(log(n))       | Ω(1)             |
+/// | Avrg:     | Θ(log(n))       | Θ(1)             |
+/// | Worst:    | O(log(n))       | O(1)             |
+///
+/// # Panics
+/// This function may panic on debug builds if the internal type (u128) and happens a
+/// operation overflow.
+pub fn binet_fibonacci(nth: i32) -> u128 {
+    ((GOLDEN_RATIO.pow(nth) - (-1.0 / GOLDEN_RATIO).pow(nth)) / 5.0f64.sqrt()).round() as u128
+}
+
 /// Calculate the `nth` fibonacci number using the fast doubling algorithm.
 ///
 /// |   Case    | Time complexity | Space complexity |
@@ -177,6 +197,38 @@ fn _big_fib(nth: &BigUint) -> (BigUint, BigUint) {
         let d = &a * &a + &b * &b;
 
         if (nth % 2u8).is_zero() { (c, d) } else { (d.clone(), c + d) }
+    }
+}
+
+/// Calculate the `nth` fibonacci number using the binet formulae.
+///
+/// This is a aproximation method and will stop working for `nth >= 265`
+///
+/// |   Case    | Time complexity | Space complexity |
+/// |:----------|:---------------:|:----------------:|
+/// | Best:     | Ω(log(n))       | Ω(1)             |
+/// | Avrg:     | Θ(log(n))       | Θ(1)             |
+/// | Worst:    | O(log(n))       | O(1)             |
+///
+/// # Panics
+/// This function may panic if `BigUint` type run out of allocation memory.
+#[cfg(feature = "big_num")]
+pub fn big_binet_fibonacci(nth: impl Into<BigUint>) -> BigUint {
+    let nth = nth.into();
+    if nth.is_zero() {
+        nth
+    } else {
+        let gr = BigRational::new(
+            112016498943988617255084900949u128.into(),
+            69230003648151669220777340178u128.into(),
+        );
+        let sqrt_five = BigRational::new(
+            77401497119912782644696230860u128.into(),
+            34615001824075834610388670089u128.into(),
+        );
+        let minus_one = BigRational::new((-1).into(), 1.into());
+        let fib = ((gr.clone().pow(nth) - (minus_one / gr)) / sqrt_five).round().to_integer();
+        BigUint::try_from(fib).unwrap()
     }
 }
 
@@ -207,6 +259,13 @@ mod tests {
     }
 
     #[test]
+    fn binet_test() {
+        let sure = vec![0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987, 1597];
+        let test: Vec<_> = (0..sure.len() as i32).map(binet_fibonacci).collect();
+        assert_eq!(sure, test);
+    }
+
+    #[test]
     fn fast_doubling_bignum_test() {
         let sure: Vec<_> =
             vec![0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987, 1597]
@@ -215,6 +274,18 @@ mod tests {
                 .collect();
 
         let test: Vec<_> = (0..sure.len() as u128).map(big_fast_doubling_fibonacci).collect();
+        assert_eq!(sure, test);
+    }
+
+    #[test]
+    fn binet_bignum_test() {
+        let sure: Vec<_> =
+            vec![0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987, 1597]
+                .iter()
+                .map(|&x| BigUint::from(x as u32))
+                .collect();
+
+        let test: Vec<_> = (0..sure.len() as u128).map(big_binet_fibonacci).collect();
         assert_eq!(sure, test);
     }
 
