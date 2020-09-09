@@ -4,6 +4,8 @@ use std::{convert::TryFrom, fmt::Debug};
 #[cfg(feature = "big_num")]
 use num::{pow::Pow, rational::BigRational, BigUint, One, Zero};
 
+use const_fn::const_fn;
+
 const GOLDEN_RATIO: f64 = 1.618033988749894848204586834365638117720309179805762862135;
 
 
@@ -97,7 +99,8 @@ impl Iterator for BigFib {
 /// # Panics
 /// This function may panic on debug builds if the internal type (u128) and happens a
 /// operation overflow.
-pub fn recursive_fibonacci(nth: u128) -> u128 {
+#[const_fn("1.46")]
+pub const fn recursive_fibonacci(nth: u128) -> u128 {
     match nth {
         0 => 0,
         1 | 2 => 1,
@@ -116,13 +119,17 @@ pub fn recursive_fibonacci(nth: u128) -> u128 {
 /// # Panics
 /// This function may panic on debug builds if the internal type (u128) and happens a
 /// operation overflow.
-pub fn dynamic_fibonacci(nth: u128) -> u128 {
+#[const_fn("1.46")]
+pub const fn dynamic_fibonacci(nth: u128) -> u128 {
     let (mut a, mut b) = (0, 1);
 
-    for _ in 0..nth {
+    let mut iter = 0;
+    while iter < nth {
         let c = a + b;
         a = b;
         b = c;
+
+        iter += 1;
     }
 
     a
@@ -139,11 +146,13 @@ pub fn dynamic_fibonacci(nth: u128) -> u128 {
 /// # Panics
 /// This function may panic on debug builds if the internal type (u128) and happens a
 /// operation overflow.
-pub fn fast_doubling_fibonacci(nth: u128) -> u128 { _fib(nth).0 }
+#[const_fn("1.46")]
+pub const fn fast_doubling_fibonacci(nth: u128) -> u128 { _fib(nth).0 }
 
 /// Calculate the fibonacci number at index `nth` using the fast doubling strategy
 /// (inner).
-fn _fib(nth: u128) -> (u128, u128) {
+#[const_fn("1.46")]
+const fn _fib(nth: u128) -> (u128, u128) {
     if nth == 0 {
         (0, 1)
     } else {
