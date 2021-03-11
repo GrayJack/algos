@@ -236,7 +236,7 @@ fn partition<T: Copy + PartialOrd, C: Fn(&T, &T) -> bool>(v: &mut [T], cmp: &C) 
     let (start, end) = (0, v.len() - 1);
     // We randomize the choice of the pivot so we have less probability to have Worst case.
     // Then we swap the random element to the end of the array.
-    let rand = thread_rng().gen_range(start, end);
+    let rand = thread_rng().gen_range(start..=end);
     let pivot = v[rand];
     v.swap(rand, end);
 
